@@ -42,6 +42,10 @@ l'app funziona per qualunque punto, quindi puoi condividerla con amici che vivon
 - **Gelo**: dalla minima prevista, punto di rugiada, nuvole e vento si stima la temperatura *sul terreno* (con cielo
   sereno e aria ferma scende fino a ~3,5 °C sotto quella a 2 m). Livelli: nessuno / possibile / probabile, con giorni
   di anticipo. Oltre l'orizzonte delle previsioni si usano gli ultimi 25 anni di dati del punto.
+- **Grandine**: allerta **gialla** (possibile) o **arancione** (probabile) fino a 5 giorni prima, con fascia oraria e
+  consigli. Si calcola da energia dei temporali (CAPE), vento in quota, codici di grandine dei modelli e quanti modelli
+  concordano; è stata tarata su previsioni passate (circa il 4-12% dei giorni d'estate, nessuno d'inverno). È una
+  *stima dei modelli*, non un'allerta ufficiale: controlla anche i bollettini della Regione e della Protezione Civile.
 - **Annaffiatura**: bilancio idrico degli ultimi 21 giorni (pioggia, evapotraspirazione ET0, tipo di terreno) e pioggia
   prevista nelle 48 ore: *annaffia oggi*, *aspetta* oppure *non serve*.
 - **Sole diretto**: la posizione del sole ogni minuto confrontata con il profilo dell'orizzonte. Se PVGIS non è

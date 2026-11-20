@@ -5,6 +5,7 @@
   import { daySun } from '../../core/sun/sun'
   import type { HorizonProfile, Location } from '../../core/types'
   import FrostBanner from '../components/FrostBanner.svelte'
+  import HailBanner from '../components/HailBanner.svelte'
   import FrostClimate from '../components/FrostClimate.svelte'
   import WeatherIcon from '../components/WeatherIcon.svelte'
   import { dayName, deg, duration, mm, skyLabel } from '../format'
@@ -22,9 +23,11 @@
       sun: daySun(d.date, data.raw.utcOffsetSeconds, location.lat, location.lon, horizon, data.combined.hours.filter((h) => h.time.startsWith(d.date))),
     })),
   )
+  const hailOn = (date: string) => insights.hail.days.find((h) => h.date === date)?.level ?? 'nessuno'
   const dots = { alta: 3, media: 2, bassa: 1 } as const
 </script>
 
+<HailBanner hail={insights.hail} />
 <FrostBanner nights={insights.frost} />
 
 <div class="list">
@@ -37,6 +40,9 @@
         <span title="Pioggia">🌧️ {mm(d.precipSum)} mm</span>
         <span title="Vento e raffiche">💨 {Math.round(d.windMax ?? 0)} / {Math.round(d.gustMax ?? 0)}</span>
         <span title="Sole diretto nell’orto">☀️ {duration(d.sun.effectiveMinutes)}</span>
+        {#if hailOn(d.date) !== 'nessuno'}
+          <span class="hail {hailOn(d.date)}">⚡ grandine {hailOn(d.date) === 'arancione' ? 'probabile' : 'possibile'}</span>
+        {/if}
       </div>
       <div class="rel" title={`Affidabilità ${d.reliability.level}`} aria-label={`Affidabilità ${d.reliability.level}`}>
         {#each [1, 2, 3] as n}<i class:on={n <= dots[d.reliability.level]}></i>{/each}
@@ -65,5 +71,7 @@
   .rel small { display: none; }
   i { width: 8px; height: 8px; border-radius: 50%; background: #e0d6b8; display: inline-block; }
   i.on { background: var(--foglia); }
+  .hail { font-weight: 800; font-size: 0.75rem; border-radius: 8px; padding: 1px 7px; background: #ffee58; color: #4a3200; width: fit-content; }
+  .hail.arancione { background: #ffa726; }
   .legend { text-align: center; font-size: 0.8rem; opacity: 0.7; }
 </style>

@@ -4,6 +4,7 @@
   import { daySun, formatLocalTime, isDaylight } from '../../core/sun/sun'
   import type { HorizonProfile, Location } from '../../core/types'
   import FrostBanner from '../components/FrostBanner.svelte'
+  import HailBanner from '../components/HailBanner.svelte'
   import { moonAt } from '../../core/moon/moon'
   import TasksCard from '../components/TasksCard.svelte'
   import HorizonChart from '../components/HorizonChart.svelte'
@@ -47,6 +48,7 @@
 </script>
 
 {#if now}
+  <HailBanner hail={insights.hail} />
   <FrostBanner nights={insights.frost} />
 
   <section class="hero sky-{now.sky}" class:night={night(now.time)}>

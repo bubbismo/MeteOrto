@@ -14,11 +14,20 @@ const API_VARS: Record<Variable, string> = {
   soilTemp6: 'soil_temperature_6cm',
 }
 
+/** Ingredients of severe convection, used for the hail alert. */
+const CONVECTIVE_VARS = {
+  cape: 'cape',
+  wind500: 'wind_speed_500hPa',
+  dir500: 'wind_direction_500hPa',
+  dir10: 'wind_direction_10m',
+  freezingLevel: 'freezing_level_height',
+} as const
+
 const PAST_DAYS = 7
 const FORECAST_DAYS = 6
 
 export function buildForecastUrl(loc: Location): string {
-  const hourly = [...Object.values(API_VARS), 'weather_code'].join(',')
+  const hourly = [...Object.values(API_VARS), 'weather_code', ...Object.values(CONVECTIVE_VARS)].join(',')
   const p = new URLSearchParams({
     latitude: loc.lat.toFixed(4),
     longitude: loc.lon.toFixed(4),
@@ -48,7 +57,19 @@ export function parseForecast(json: any, fetchedAt: number): RawForecast {
     const values = {} as Record<Variable, (number | null)[]>
     for (const v of VARIABLES) values[v] = column(hourly, API_VARS[v], model, times.length)
     if (values.temperature.every((x) => x === null)) continue
-    models.push({ model, values, weatherCode: column(hourly, 'weather_code', model, times.length) })
+    const n = times.length
+    models.push({
+      model,
+      values,
+      weatherCode: column(hourly, 'weather_code', model, n),
+      convective: {
+        cape: column(hourly, CONVECTIVE_VARS.cape, model, n),
+        wind500: column(hourly, CONVECTIVE_VARS.wind500, model, n),
+        dir500: column(hourly, CONVECTIVE_VARS.dir500, model, n),
+        dir10: column(hourly, CONVECTIVE_VARS.dir10, model, n),
+        freezingLevel: column(hourly, CONVECTIVE_VARS.freezingLevel, model, n),
+      },
+    })
   }
   return { fetchedAt, utcOffsetSeconds: json.utc_offset_seconds ?? 0, times, models }
 }

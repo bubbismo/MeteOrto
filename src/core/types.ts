@@ -20,11 +20,26 @@ export const VARIABLES = [
 ] as const
 export type Variable = (typeof VARIABLES)[number]
 
+/** Convective ingredients of one model (hail risk); arrays are aligned with RawForecast.times. */
+export interface Convective {
+  /** Convective available potential energy, J/kg. */
+  cape: (number | null)[]
+  /** Wind speed at 500 hPa (about 5.5 km), km/h, and its direction in degrees. */
+  wind500: (number | null)[]
+  dir500: (number | null)[]
+  /** Direction of the wind at 10 m, degrees (its speed is in `values.windSpeed`). */
+  dir10: (number | null)[]
+  /** Height of the 0 °C level, m (not given by every model). */
+  freezingLevel: (number | null)[]
+}
+
 /** Hourly values of a single weather model; arrays are aligned with RawForecast.times. */
 export interface ModelSeries {
   model: string
   values: Record<Variable, (number | null)[]>
   weatherCode: (number | null)[]
+  /** Missing in forecasts cached before the hail alert existed. */
+  convective?: Convective
 }
 
 /** Normalised multi-model forecast, as returned by a ForecastProvider. */

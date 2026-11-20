@@ -1,4 +1,5 @@
 import type { DayHistory } from '../adapters/openmeteo/archive'
+import { assessHail, type HailResult } from '../core/hail/hail'
 import { assessFrost, type FrostNight } from '../core/frost/frost'
 import { buildPastWater, nearReliability, rainNext48 } from '../core/irrigation/inputs'
 import { irrigationAdvice, type IrrigationAdvice, type SoilType } from '../core/irrigation/irrigation'
@@ -12,6 +13,7 @@ import type { ForecastResult } from './forecastService'
 
 export interface Insights {
   frost: FrostNight[]
+  hail: HailResult
   advice: IrrigationAdvice
   work: WorkWindow[]
   sowing: MethodAdvice[]
@@ -36,6 +38,7 @@ export function computeInsights(
   const { soilPast, soilNext } = soilTemps(combined.hours, nowLocal)
   return {
     frost,
+    hail: assessHail(raw, nowLocal),
     soil: { past: soilPast, next: soilNext },
     sowing: adviseAll(crops, { today, soilPast, soilNext, frostNights: frost, lateFrostUntil: climate?.air.lastSpring?.p90 ?? null }),
     work,
