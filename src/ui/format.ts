@@ -32,3 +32,15 @@ export function ageLabel(fetchedAt: number): string {
   const h = Math.round(min / 60)
   return h < 24 ? `aggiornata ${h} h fa` : `aggiornata ${Math.round(h / 24)} g fa`
 }
+
+const MONTHS = ['gen', 'feb', 'mar', 'apr', 'mag', 'giu', 'lug', 'ago', 'set', 'ott', 'nov', 'dic']
+const WEEKDAYS_FULL = ['domenica', 'lunedì', 'martedì', 'mercoledì', 'giovedì', 'venerdì', 'sabato']
+
+/** "04-25" -> "25 apr" */
+export function monthDay(md: string): string {
+  return `${Number(md.slice(3, 5))} ${MONTHS[Number(md.slice(0, 2)) - 1]}`
+}
+
+export function weekdayFull(date: string): string {
+  return WEEKDAYS_FULL[new Date(date + 'T12:00:00Z').getUTCDay()]
+}

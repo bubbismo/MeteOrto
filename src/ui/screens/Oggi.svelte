@@ -1,8 +1,12 @@
 <script lang="ts">
   import type { ForecastResult } from '../../app/forecastService'
+  import type { Insights } from '../../app/insights'
   import { daySun, formatLocalTime, isDaylight } from '../../core/sun/sun'
   import type { HorizonProfile, Location } from '../../core/types'
+  import FrostBanner from '../components/FrostBanner.svelte'
   import HorizonChart from '../components/HorizonChart.svelte'
+  import IrrigationCard from '../components/IrrigationCard.svelte'
+  import WorkWindowsCard from '../components/WorkWindowsCard.svelte'
   import WeatherIcon from '../components/WeatherIcon.svelte'
   import { deg, duration, mm, skyLabel } from '../format'
 
@@ -11,7 +15,8 @@
     location,
     horizon,
     horizonFailed = false,
-  }: { data: ForecastResult; location: Location; horizon: HorizonProfile | null; horizonFailed?: boolean } = $props()
+    insights,
+  }: { data: ForecastResult; location: Location; horizon: HorizonProfile | null; horizonFailed?: boolean; insights: Insights } = $props()
 
   const offset = $derived(data.raw.utcOffsetSeconds)
   const nowHour = $derived(data.nowLocal.slice(0, 13) + ':00')
@@ -38,6 +43,8 @@
 </script>
 
 {#if now}
+  <FrostBanner nights={insights.frost} />
+
   <section class="hero" class:sunny={now.sky === 'sun' && !night(now.time)}>
     <WeatherIcon sky={now.sky} night={night(now.time)} size={140} />
     <div class="temp">{deg(now.temperature)}</div>
@@ -50,6 +57,9 @@
     <div><span>🌧️</span><b>{mm(rain24)}</b> mm<small>prossime 24 h</small></div>
     <div><span>🌱</span><b>{deg(now.soilTemp6)}</b><small>terreno</small></div>
   </section>
+
+  <IrrigationCard advice={insights.advice} />
+  <WorkWindowsCard windows={insights.work} today={data.nowLocal.slice(0, 10)} />
 
   {#if sun}
     <section class="sun">

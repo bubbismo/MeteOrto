@@ -1,11 +1,21 @@
 <script lang="ts">
+  import type { Climate } from '../../app/historyService'
   import type { ForecastResult } from '../../app/forecastService'
+  import type { Insights } from '../../app/insights'
   import { daySun } from '../../core/sun/sun'
   import type { HorizonProfile, Location } from '../../core/types'
+  import FrostBanner from '../components/FrostBanner.svelte'
+  import FrostClimate from '../components/FrostClimate.svelte'
   import WeatherIcon from '../components/WeatherIcon.svelte'
   import { dayName, deg, duration, mm, skyLabel } from '../format'
 
-  let { data, location, horizon }: { data: ForecastResult; location: Location; horizon: HorizonProfile | null } = $props()
+  let {
+    data,
+    location,
+    horizon,
+    insights,
+    climate,
+  }: { data: ForecastResult; location: Location; horizon: HorizonProfile | null; insights: Insights; climate: Climate | null } = $props()
   const days = $derived(
     data.combined.days.slice(0, 5).map((d) => ({
       ...d,
@@ -14,6 +24,8 @@
   )
   const dots = { alta: 3, media: 2, bassa: 1 } as const
 </script>
+
+<FrostBanner nights={insights.frost} />
 
 <div class="list">
   {#each days as d}
@@ -34,6 +46,8 @@
   {/each}
 </div>
 <p class="legend">● ● ● = quanto i modelli concordano</p>
+
+{#if climate}<FrostClimate {climate} today={data.nowLocal.slice(0, 10)} />{/if}
 
 <style>
   .list { display: grid; gap: 10px; }

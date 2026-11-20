@@ -68,3 +68,22 @@ export function saveProxyUrl(url: string): void {
     // ignore
   }
 }
+
+const SOIL_KEY = 'meteorto.soil'
+
+export function loadSoil(): 'sabbioso' | 'medio' | 'argilloso' {
+  try {
+    const v = localStorage.getItem(SOIL_KEY)
+    return v === 'sabbioso' || v === 'argilloso' ? v : 'medio'
+  } catch {
+    return 'medio'
+  }
+}
+
+export function saveSoil(v: 'sabbioso' | 'medio' | 'argilloso'): void {
+  try {
+    localStorage.setItem(SOIL_KEY, v)
+  } catch {
+    // ignore
+  }
+}

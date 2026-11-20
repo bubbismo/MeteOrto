@@ -75,6 +75,8 @@ export interface DailySummary {
   tMin: number | null
   tMax: number | null
   precipSum: number
+  /** Reference evapotranspiration of the day, mm. */
+  et0Sum: number
   windMax: number | null
   gustMax: number | null
   sky: Sky

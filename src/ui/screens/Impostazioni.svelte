@@ -1,5 +1,6 @@
 <script lang="ts">
   import { loadProxyUrl, saveProxyUrl } from '../../adapters/storage/kv'
+  import type { SoilType } from '../../core/irrigation/irrigation'
   import type { HorizonProfile, Location } from '../../core/types'
   import HorizonChart from '../components/HorizonChart.svelte'
   import LocationForm from '../components/LocationForm.svelte'
@@ -10,12 +11,16 @@
     onsave,
     onrecompute,
     busy,
+    soil,
+    onsoil,
   }: {
     location: Location
     horizon: HorizonProfile | null
     onsave: (loc: Location) => void
     onrecompute: () => void
     busy: boolean
+    soil: SoilType
+    onsoil: (s: SoilType) => void
   } = $props()
 
   let proxy = $state(loadProxyUrl())
@@ -28,6 +33,14 @@
 
 <h2>Posizione</h2>
 <LocationForm {onsave} initial={location} />
+
+<h2>Terreno</h2>
+<p class="note">Serve per il consiglio di annaffiatura: un terreno sabbioso si asciuga prima di uno argilloso.</p>
+<div class="soil">
+  {#each [['sabbioso', 'Sabbioso'], ['medio', 'Medio'], ['argilloso', 'Argilloso']] as [v, label]}
+    <button class:on={soil === v} onclick={() => onsoil(v as SoilType)}>{label}</button>
+  {/each}
+</div>
 
 <h2>Orizzonte</h2>
 <HorizonChart {horizon} />
@@ -49,5 +62,8 @@
   input { width: 100%; font: inherit; padding: 10px; border: 2px solid var(--pesca); border-radius: 14px; background: #fff; color: inherit; }
   button { margin-top: 10px; width: 100%; font: inherit; font-weight: 700; padding: 12px; border: 0; border-radius: 16px; background: var(--pesca); color: var(--testo); cursor: pointer; }
   button:disabled { opacity: 0.6; }
+  .soil { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .soil button { margin: 0; }
+  .soil button.on { background: var(--sole); }
   summary { cursor: pointer; font-size: 0.9rem; margin: 8px 4px; }
 </style>

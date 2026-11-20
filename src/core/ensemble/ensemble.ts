@@ -182,6 +182,7 @@ export function combineForecast(raw: RawForecast, nowLocal: string): CombinedFor
       tMin: temps.length ? Math.min(...temps) : null,
       tMax,
       precipSum: Math.round(precipSum * 10) / 10,
+      et0Sum: Math.round(nums(pts.map((p) => p.et0)).reduce((a, b) => a + b, 0) * 10) / 10,
       windMax: winds.length ? Math.max(...winds) : null,
       gustMax: gusts.length ? Math.max(...gusts) : null,
       sky,
