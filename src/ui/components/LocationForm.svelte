@@ -89,6 +89,20 @@
 
   <button type="button" class="gps" onclick={useGps} disabled={busy}>📍 Usa la mia posizione</button>
 
+  <!-- the confirmation sits right under the first choice, so the next step is always in sight -->
+  <button type="button" class="confirm" class:ready={!!point && !busy} onclick={confirm} disabled={!point || busy}>
+    {#if busy}
+      Un momento…
+    {:else if point}
+      ✔ Conferma questa posizione
+      <small>{point.lat.toFixed(5)}, {point.lon.toFixed(5)}</small>
+    {:else}
+      Conferma posizione
+      <small>scegli prima un punto: GPS, ricerca o mappa</small>
+    {/if}
+  </button>
+  {#if message}<p class="error" role="alert">{message}</p>{/if}
+
   <form class="search" onsubmit={search}>
     <input bind:value={query} placeholder="🔎 Cerca un paese o una località" autocomplete="off" />
     <button type="submit">Cerca</button>
@@ -118,12 +132,6 @@
     </div>
   </details>
 
-  {#if message}<p class="error" role="alert">{message}</p>{/if}
-  {#if point}<p class="coords">{point.lat.toFixed(5)}, {point.lon.toFixed(5)}</p>{/if}
-
-  <button type="button" class="confirm" onclick={confirm} disabled={!point || busy}>
-    {busy ? 'Un momento…' : 'Conferma posizione'}
-  </button>
 </div>
 
 <style>
@@ -132,7 +140,10 @@
   button { font: inherit; font-weight: 700; padding: 12px; border: 0; border-radius: 16px; background: var(--pesca); color: var(--testo); cursor: pointer; }
   button:disabled { opacity: 0.6; }
   .gps { background: var(--cielo); }
-  .confirm { background: var(--sole); padding: 14px; }
+  .confirm { background: var(--sole); padding: 14px; display: grid; gap: 2px; justify-items: center; }
+  .confirm small { font-weight: 400; font-size: 0.78rem; opacity: 0.85; }
+  .confirm.ready { animation: ready 2s ease-in-out infinite; box-shadow: 0 3px 0 #e08a00; }
+  @keyframes ready { 0%, 100% { box-shadow: 0 3px 0 #e08a00, 0 0 0 0 #ffb62799; } 60% { box-shadow: 0 3px 0 #e08a00, 0 0 0 12px #ffb62700; } }
   .search { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
   input, textarea { font: inherit; padding: 12px; border: 2px solid var(--pesca); border-radius: 16px; background: #fff; color: inherit; min-width: 0; }
   input:focus, textarea:focus { outline: none; border-color: var(--sole); }
@@ -145,5 +156,4 @@
   summary { cursor: pointer; font-size: 0.9rem; }
   .paste { display: grid; grid-template-columns: 1fr auto; gap: 8px; margin-top: 8px; }
   .error { color: #b3261e; margin: 0; font-size: 0.9rem; }
-  .coords { margin: 0; text-align: center; font-size: 0.85rem; opacity: 0.7; }
 </style>
