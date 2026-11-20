@@ -33,7 +33,7 @@
   <div class="hours">
     {#each next as h}
       <div class="hour">
-        <small>{h.time.slice(11, 13)}</small>
+        <small>{h.time.slice(11, 16)}</small>
         <WeatherIcon sky={h.sky} night={isNight(h.time)} size={40} />
         <b>{deg(h.temperature)}</b>
         <small class="rain">{(h.precipitation ?? 0) >= 0.1 ? mm(h.precipitation ?? 0) : ''}</small>

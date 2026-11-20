@@ -64,7 +64,7 @@
 
     {#if tab === 'impostazioni'}
       <h2>Posizione</h2>
-      <LocationForm {onsave} initial={`${location.lat}, ${location.lon}`} />
+      <LocationForm {onsave} initial={location} />
     {:else if data}
       {#if tab === 'oggi'}<Oggi {data} />{:else}<Giorni {data} />{/if}
       <p class="age">{ageLabel(data.raw.fetchedAt)} · {data.raw.models.length} modelli</p>
