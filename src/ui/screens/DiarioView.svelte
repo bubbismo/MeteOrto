@@ -100,7 +100,7 @@
 <style>
   .add { width: 100%; font: inherit; font-size: 1.15rem; font-weight: 800; padding: 16px; border: 0; border-radius: 22px; background: var(--foglia); color: #fff; cursor: pointer; box-shadow: 0 4px 0 #3c8a40; }
   .add:active { transform: translateY(2px); box-shadow: 0 2px 0 #3c8a40; }
-  .toast { display: flex; justify-content: space-between; align-items: center; gap: 8px; background: #263238; color: #fff; border-radius: 16px; padding: 10px 14px; margin-top: 10px; font-size: 0.9rem; }
+  .toast { animation: rise 0.45s var(--ease) both; display: flex; justify-content: space-between; align-items: center; gap: 8px; background: #263238; color: #fff; border-radius: 16px; padding: 10px 14px; margin-top: 10px; font-size: 0.9rem; }
   .toast button { font: inherit; font-weight: 700; background: #ffffff22; color: #fff; border: 0; border-radius: 10px; padding: 5px 12px; cursor: pointer; }
   h2 { font-size: 1rem; margin: 18px 4px 0; }
   .empty { background: #fff; border-radius: 22px; padding: 6px 16px; margin-top: 12px; font-size: 0.9rem; }

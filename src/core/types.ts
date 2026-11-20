@@ -103,3 +103,24 @@ export interface HorizonProfile {
 export interface HorizonProvider {
   fetchHorizon(loc: Location): Promise<HorizonProfile>
 }
+
+/** One reading of a personal weather station (hourly values, local time). */
+export interface Observation {
+  /** Local ISO hour, e.g. "2026-11-20T14:00". */
+  time: string
+  temperature?: number
+  /** Rain over the hour, mm. */
+  precipitation?: number
+  /** Wind, km/h. */
+  windSpeed?: number
+}
+
+/**
+ * Source of real measurements (Ecowitt, Davis, Netatmo, a CSV file…).
+ * Used to learn how far the models are off at this place and correct the forecast.
+ */
+export interface DataSource {
+  id: string
+  label: string
+  fetchObservations(from: Date, to: Date): Promise<Observation[]>
+}

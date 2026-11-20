@@ -9,7 +9,9 @@
   import { EMPTY_USER_CROPS, mergeCrops, newCustomCrop, type Crop, type UserCrops } from '../core/sowing/crops'
   import { BASE_CROPS, loadUserCrops, saveUserCrops } from '../app/cropsService'
   import type { HorizonProfile, Location } from '../core/types'
+  import InstallHint from './components/InstallHint.svelte'
   import LocationForm from './components/LocationForm.svelte'
+  import Skeleton from './components/Skeleton.svelte'
   import { ageLabel } from './format'
   import Giorni from './screens/Giorni.svelte'
   import Impostazioni from './screens/Impostazioni.svelte'
@@ -157,8 +159,9 @@
 
 {#if !location}
   <main class="welcome">
-    <img src="favicon.svg" alt="" width="96" height="96" />
+    <img src="favicon.svg" alt="" width="108" height="108" />
     <h1>MeteOrto</h1>
+    <p class="tagline">Il meteo del tuo orto, a colpo d’occhio</p>
     <LocationForm {onsave} />
   </main>
 {:else}
@@ -169,7 +172,7 @@
         {location.lat.toFixed(4)}, {location.lon.toFixed(4)}{location.elevation !== null ? ` · ${Math.round(location.elevation)} m` : ''}
       </small>
     </div>
-    <button class="icon" onclick={() => refresh(true)} disabled={loading} aria-label="Aggiorna">{loading ? '⏳' : '🔄'}</button>
+    <button class="icon" onclick={() => refresh(true)} disabled={loading} aria-label="Aggiorna le previsioni"><span class:spin={loading}>🔄</span></button>
   </header>
 
   <main>
@@ -178,6 +181,8 @@
       <p class="banner err">{error} <button class="retry" onclick={() => refresh(true)}>Riprova</button></p>
     {/if}
 
+    {#key tab}
+    <div class="page">
     {#if tab === 'impostazioni'}
       <Impostazioni {location} {horizon} {onsave} onrecompute={() => refreshHorizon(true)} busy={horizonLoading} {soil} onsoil={setSoil} {journal} {userCrops} {minSeasons} onminseasons={setMinSeasons} onimport={importedBackup} />
     {:else if data && insights}
@@ -202,13 +207,18 @@
           onremove={removeCrop}
         />
       {/if}
-      <p class="age">{ageLabel(data.raw.fetchedAt)} · {data.raw.models.length} modelli</p>
     {:else if loading}
-      <p class="center">Scarico le previsioni…</p>
+      <Skeleton />
+    {/if}
+    </div>
+    {/key}
+    {#if data}
+      <p class="age">{ageLabel(data.raw.fetchedAt)} · {data.raw.models.length} modelli</p>
+      {#if tab === 'oggi'}<InstallHint />{/if}
     {/if}
   </main>
 
-  <nav>
+  <nav aria-label="Sezioni">
     <button class:active={tab === 'oggi'} onclick={() => (tab = 'oggi')}><span>☀️</span>Oggi</button>
     <button class:active={tab === 'giorni'} onclick={() => (tab = 'giorni')}><span>📅</span>Giorni</button>
     <button class:active={tab === 'pioggia'} onclick={() => (tab = 'pioggia')}><span>🌧️</span>Pioggia</button>
@@ -220,19 +230,28 @@
 <style>
   .welcome { min-height: 100dvh; display: grid; align-content: center; justify-items: center; gap: 12px; padding: 16px; max-width: 480px; margin: 0 auto; }
   .welcome :global(form) { width: 100%; }
-  h1 { margin: 0; }
-  header { position: sticky; top: 0; z-index: 2; display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; background: var(--sole); }
+  .welcome { background: radial-gradient(circle at 50% 12%, #fff3b0, transparent 60%); }
+  .welcome img { animation: float 4s ease-in-out infinite; filter: drop-shadow(0 8px 12px #ff9f1c55); }
+  h1 { margin: 0; font-size: 2.1rem; }
+  .tagline { margin: -6px 0 6px; opacity: 0.8; }
+  header { position: sticky; top: 0; z-index: 2; display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; background: linear-gradient(135deg, #ffc83d, #ffb627 60%, #ffa91c); box-shadow: 0 2px 12px #ff9f1c55; }
   header div { display: grid; }
   header small { opacity: 0.8; }
-  .icon { font-size: 1.4rem; background: none; border: 0; cursor: pointer; }
+  .icon { font-size: 1.4rem; background: none; border: 0; cursor: pointer; min-width: 44px; min-height: 44px; }
+  .icon span { display: inline-block; }
+  .spin { animation: rot 0.9s linear infinite; }
   main:not(.welcome) { max-width: 560px; margin: 0 auto; padding: 16px 16px 96px; }
   .banner { background: #fff3cd; border-radius: 14px; padding: 10px 12px; margin: 0 0 12px; font-size: 0.9rem; }
   .banner.err { background: #fde0dc; }
   .retry { font: inherit; font-weight: 700; margin-left: 6px; border: 0; border-radius: 10px; padding: 3px 12px; background: #fff; cursor: pointer; }
   .age { text-align: center; font-size: 0.8rem; opacity: 0.7; }
-  .center { text-align: center; }
-  nav { position: fixed; bottom: 0; left: 0; right: 0; display: grid; grid-template-columns: repeat(5, 1fr); background: #fff; border-top: 2px solid var(--pesca); padding-bottom: env(safe-area-inset-bottom); }
-  nav button { background: none; border: 0; font: inherit; font-size: 0.7rem; padding: 8px 4px; display: grid; justify-items: center; cursor: pointer; color: inherit; opacity: 0.6; }
-  nav button span { font-size: 1.5rem; }
-  nav button.active { opacity: 1; font-weight: 700; }
+  nav { position: fixed; bottom: 0; left: 0; right: 0; display: grid; grid-template-columns: repeat(5, 1fr); background: #fffffff2; backdrop-filter: blur(8px); border-top: 2px solid var(--pesca); padding-bottom: env(safe-area-inset-bottom); z-index: 3; }
+  nav button { position: relative; background: none; border: 0; font: inherit; font-size: 0.7rem; padding: 8px 4px; display: grid; justify-items: center; cursor: pointer; color: inherit; opacity: 0.72; min-height: 56px; }
+  nav button span { font-size: 1.5rem; transition: transform 0.25s var(--ease); }
+  nav button.active { opacity: 1; font-weight: 800; }
+  nav button.active span { animation: pop 0.45s var(--ease); }
+  nav button.active::before { content: ''; position: absolute; top: 4px; width: 46px; height: 32px; border-radius: 16px; background: var(--pesca); z-index: -1; animation: fade-in 0.3s both; }
+  @keyframes pop { 0% { transform: scale(0.6) rotate(-12deg); } 60% { transform: scale(1.25) rotate(6deg); } 100% { transform: scale(1) rotate(0); } }
+  @keyframes float { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-10px) rotate(3deg); } }
+  @keyframes rot { to { transform: rotate(360deg); } }
 </style>

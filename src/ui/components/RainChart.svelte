@@ -25,7 +25,7 @@
     <text x="6" y={PAD_T - 4} font-size="9" fill="#6b8190">{Math.round(max)} mm</text>
     {#each days as d, i}
       {#if d.mm > 0.05}
-        <rect x={i * bw + 1} y={y(d.mm)} width={Math.max(1, bw - 2)} height={H - PAD_B - y(d.mm)} rx="2" fill={color[d.kind]} stroke={d.kind === 'forecast' ? '#4fc3f7' : 'none'} stroke-dasharray="3 2" />
+        <rect class="bar" style="--i:{i}" x={i * bw + 1} y={y(d.mm)} width={Math.max(1, bw - 2)} height={H - PAD_B - y(d.mm)} rx="2" fill={color[d.kind]} stroke={d.kind === 'forecast' ? '#4fc3f7' : 'none'} stroke-dasharray="3 2" />
       {/if}
     {/each}
     {#each days as d, i}
@@ -44,6 +44,8 @@
 
 <style>
   figure { margin: 0; }
+  .bar { transform-box: fill-box; transform-origin: bottom; animation: grow 0.7s var(--ease) both; animation-delay: calc(var(--i) * 22ms + 150ms); }
+  @keyframes grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
   svg { width: 100%; height: auto; display: block; }
   figcaption { display: flex; gap: 14px; font-size: 0.75rem; opacity: 0.85; margin-top: 6px; }
   span { display: inline-flex; align-items: center; gap: 5px; }

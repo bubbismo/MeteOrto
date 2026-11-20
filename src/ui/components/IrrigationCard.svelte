@@ -42,6 +42,13 @@
   h2 { margin: 0; font-size: 1.1rem; }
   p { margin: 2px 0 8px; font-size: 0.9rem; }
   .bar { height: 8px; border-radius: 4px; background: #ffffffaa; overflow: hidden; }
-  .bar i { display: block; height: 100%; background: #4fc3f7; border-radius: 4px; }
+  .bar i { display: block; height: 100%; background: linear-gradient(90deg, #4fc3f7, #29b6f6); border-radius: 4px; transform-origin: left; animation: fill 1.1s var(--ease) 0.3s both; }
+  .water .icon { animation: drip 1.8s ease-in-out infinite; }
+  .wait .icon { animation: tilt 2.4s ease-in-out infinite; }
+  .ok .icon { animation: pop 0.7s var(--ease) both; }
+  @keyframes fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @keyframes drip { 0%, 100% { transform: translateY(0) scale(1); } 40% { transform: translateY(5px) scale(0.92, 1.1); } 60% { transform: translateY(0) scale(1.05, 0.95); } }
+  @keyframes tilt { 0%, 100% { transform: rotate(-10deg); } 50% { transform: rotate(10deg); } }
+  @keyframes pop { from { transform: scale(0) rotate(-30deg); } 70% { transform: scale(1.25); } to { transform: scale(1); } }
   small { font-size: 0.75rem; opacity: 0.75; }
 </style>

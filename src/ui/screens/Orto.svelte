@@ -55,13 +55,17 @@
     {/each}
   </div>
 
-  {#if view === 'semine'}
-    <Semine {insights} {today} onedit={() => (editing = true)} />
-  {:else if view === 'lavori'}
-    <LavoriView {insights} {waxing} />
-  {:else}
-    <DiarioView {journal} {crops} {insights} {today} {place} {minSeasons} {onpatch} />
-  {/if}
+  {#key view}
+    <div class="page">
+      {#if view === 'semine'}
+        <Semine {insights} {today} onedit={() => (editing = true)} />
+      {:else if view === 'lavori'}
+        <LavoriView {insights} {waxing} />
+      {:else}
+        <DiarioView {journal} {crops} {insights} {today} {place} {minSeasons} {onpatch} />
+      {/if}
+    </div>
+  {/key}
 {/if}
 
 <style>

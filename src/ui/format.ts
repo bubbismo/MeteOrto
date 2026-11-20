@@ -9,7 +9,7 @@ const SKY_LABEL = {
   fog: 'Nebbia',
 } as const
 
-export const skyLabel = (s: keyof typeof SKY_LABEL) => SKY_LABEL[s]
+export const skyLabel = (s: keyof typeof SKY_LABEL, night = false) => (night && s === 'sun' ? 'Sereno' : SKY_LABEL[s])
 export const deg = (v: number | null) => (v === null ? '–' : `${Math.round(v)}°`)
 export const mm = (v: number) => (v < 0.1 ? '0' : v < 10 ? v.toFixed(1) : String(Math.round(v)))
 

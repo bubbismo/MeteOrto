@@ -56,7 +56,8 @@
 <style>
   section { background: linear-gradient(135deg, #fff, #f1eefc); border-radius: 24px; padding: 12px 14px; margin-bottom: 8px; }
   .top { display: flex; gap: 12px; align-items: center; }
-  .emoji { font-size: 3rem; line-height: 1; }
+  .emoji { font-size: 3rem; line-height: 1; animation: moonfloat 6s ease-in-out infinite; filter: drop-shadow(0 0 8px #ffe08a88); }
+  @keyframes moonfloat { 0%, 100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-5px) rotate(4deg); } }
   h2 { margin: 0; font-size: 1.1rem; }
   p { margin: 2px 0 0; font-size: 0.85rem; opacity: 0.85; }
   summary { cursor: pointer; font-size: 0.85rem; margin-top: 8px; }

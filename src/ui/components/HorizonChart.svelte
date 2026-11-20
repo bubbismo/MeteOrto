@@ -134,9 +134,9 @@
     <!-- sun path -->
     {#each sky.runs as r}
       {#if r.visible}
-        <path d={fan(r.pts)} fill="url(#hc-fan)" />
-        <path d={line(r.pts)} fill="none" stroke="#ffb627" stroke-opacity="0.35" stroke-width="12" stroke-linecap="round" />
-        <path d={line(r.pts)} fill="none" stroke="#ff9f1c" stroke-width="4" stroke-linecap="round" />
+        <path class="fan" d={fan(r.pts)} fill="url(#hc-fan)" />
+        <path class="draw" pathLength="1" d={line(r.pts)} fill="none" stroke="#ffb627" stroke-opacity="0.35" stroke-width="12" stroke-linecap="round" />
+        <path class="draw" pathLength="1" d={line(r.pts)} fill="none" stroke="#ff9f1c" stroke-width="4" stroke-linecap="round" />
         <text class="t" x={clampX(r.pts[0].x)} y={r.pts[0].y - 10} text-anchor="middle">{hhmm(r.pts[0].t)}</text>
         <text class="t" x={clampX(r.pts[r.pts.length - 1].x)} y={r.pts[r.pts.length - 1].y - 10} text-anchor="middle">{hhmm(r.pts[r.pts.length - 1].t)}</text>
       {:else}
@@ -148,8 +148,8 @@
     {#if sky.now}
       {#if sky.nowVisible}
         <path d={`M${sky.now.x - 5},${sky.now.y} L${P.x - 14},${P.y} L${P.x + 14},${P.y} L${sky.now.x + 5},${sky.now.y} Z`} fill="#fff176" fill-opacity="0.7" />
-        <circle cx={sky.now.x} cy={sky.now.y} r="22" fill="url(#hc-glow)" />
-        <circle cx={sky.now.x} cy={sky.now.y} r="8" fill="#ffb627" stroke="#fff" stroke-width="2" />
+        <circle class="sunglow" cx={sky.now.x} cy={sky.now.y} r="22" fill="url(#hc-glow)" />
+        <circle class="sundot" cx={sky.now.x} cy={sky.now.y} r="8" fill="#ffb627" stroke="#fff" stroke-width="2" />
       {:else}
         <circle cx={sky.now.x} cy={sky.now.y} r="7" fill="#cfd8dc" stroke="#fff" stroke-width="2" />
       {/if}
@@ -178,7 +178,15 @@
 
 <style>
   figure { margin: 0; }
-  .t { font-size: 11px; font-weight: 700; fill: #6b3f00; paint-order: stroke; stroke: #fff; stroke-width: 3px; stroke-linejoin: round; }
+  .draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.6s var(--ease) 0.25s forwards; }
+  .fan { animation: fade-in 1.2s ease 1s both; }
+  .sunglow, .sundot { transform-box: fill-box; transform-origin: center; }
+  .sunglow { animation: sunpulse 3s ease-in-out infinite; }
+  .sundot { animation: sunpop 0.8s var(--ease) 1.5s both; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @keyframes sunpulse { 0%, 100% { transform: scale(0.85); opacity: 0.8; } 50% { transform: scale(1.2); opacity: 1; } }
+  @keyframes sunpop { from { transform: scale(0); } 60% { transform: scale(1.35); } to { transform: scale(1); } }
+  .t { animation: fade-in 0.6s ease 1.4s both; font-size: 11px; font-weight: 700; fill: #6b3f00; paint-order: stroke; stroke: #fff; stroke-width: 3px; stroke-linejoin: round; }
   svg { width: 100%; height: auto; display: block; }
   figcaption { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 0.75rem; opacity: 0.85; margin-top: 6px; }
   span { display: inline-flex; align-items: center; gap: 5px; }

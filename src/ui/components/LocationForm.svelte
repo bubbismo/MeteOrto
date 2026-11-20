@@ -4,7 +4,10 @@
   import { searchPlaces, type Place } from '../../adapters/openmeteo/geocoding'
   import { parseLocation } from '../../core/location/parse'
   import type { Location } from '../../core/types'
-  import MapPicker, { type Point } from './MapPicker.svelte'
+  import type { Point } from './MapPicker.svelte'
+
+  // the map library is heavy: it is downloaded only when this form is opened
+  const mapModule = import('./MapPicker.svelte')
 
   let { onsave, initial = null }: { onsave: (loc: Location) => void; initial?: Location | null } = $props()
 
@@ -96,7 +99,13 @@
     </ul>
   {/if}
 
-  <MapPicker {point} onpick={pick} />
+  {#await mapModule}
+    <div class="map-wait" aria-busy="true">Carico la mappa…</div>
+  {:then { default: MapPicker }}
+    <MapPicker {point} onpick={pick} />
+  {:catch}
+    <p class="error">La mappa non si carica (serve la connessione): usa la ricerca o le coordinate.</p>
+  {/await}
   <p class="hint">Tocca la mappa o trascina il segnaposto per indicare il punto esatto. Con “Satellite” riconosci l’orto dall’alto.</p>
 
   <details>
@@ -128,6 +137,8 @@
   textarea { resize: none; }
   ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
   li button { width: 100%; text-align: left; font-weight: 400; background: #fff; }
+  .map-wait { height: 300px; border-radius: 20px; background: linear-gradient(100deg, #fff0c4 30%, #fff9e6 50%, #fff0c4 70%); background-size: 220% 100%; animation: shimmer 1.4s linear infinite; display: grid; place-items: center; opacity: 0.9; }
+  @keyframes shimmer { to { background-position: -220% 0; } }
   .hint { margin: 0; font-size: 0.85rem; opacity: 0.75; }
   summary { cursor: pointer; font-size: 0.9rem; }
   .paste { display: grid; grid-template-columns: 1fr auto; gap: 8px; margin-top: 8px; }

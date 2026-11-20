@@ -48,7 +48,10 @@
 
 <style>
   .alert { display: flex; gap: 12px; background: #fff3cd; border: 3px solid #ffca28; border-radius: 24px; padding: 14px; margin-bottom: 16px; }
-  .alert.probable { background: #e1f5fe; border-color: #0288d1; }
+  .alert.probable { background: #e1f5fe; border-color: #0288d1; animation: ring 2.6s ease-out infinite; }
+  @keyframes ring { 0% { box-shadow: 0 0 0 0 #0288d166; } 70%, 100% { box-shadow: 0 0 0 14px #0288d100; } }
+  .icon { display: inline-block; animation: shiver 3.2s ease-in-out infinite; }
+  @keyframes shiver { 0%, 86%, 100% { transform: rotate(0); } 89% { transform: rotate(-9deg); } 92% { transform: rotate(8deg); } 95% { transform: rotate(-6deg); } 98% { transform: rotate(4deg); } }
   .icon { font-size: 2.6rem; line-height: 1; }
   h2 { margin: 0 0 2px; font-size: 1.2rem; }
   p { margin: 2px 0; }

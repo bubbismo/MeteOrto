@@ -80,6 +80,13 @@
 </details>
 <button onclick={recompute} disabled={busy}>{busy ? 'Calcolo…' : 'Ricalcola orizzonte'}</button>
 
+<h2>Crediti</h2>
+<p class="credits">
+  Dati meteo e storico: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo.com</a> (licenza CC BY 4.0) con i modelli DWD ICON, Météo-France AROME, ECMWF IFS e ItaliaMeteo-ARPAE ICON-2I.
+  Rilievo del terreno: Copernicus DEM. Mappe: © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>, Esri.
+  Sole e luna: <a href="https://github.com/mourner/suncalc" target="_blank" rel="noopener">SunCalc</a>. Le previsioni sono indicative: per decisioni importanti consulta anche i bollettini ufficiali.
+</p>
+
 <style>
   h2 { font-size: 1.05rem; margin: 20px 4px 8px; }
   .note { font-size: 0.85rem; opacity: 0.8; margin: 8px 4px; }
@@ -89,5 +96,7 @@
   .soil { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 8px; }
   .soil button { margin: 0; }
   .soil button.on { background: var(--sole); }
+  .credits { font-size: 0.78rem; opacity: 0.8; margin: 6px 4px 24px; line-height: 1.5; }
+  .credits a { color: inherit; }
   summary { cursor: pointer; font-size: 0.9rem; margin: 8px 4px; }
 </style>

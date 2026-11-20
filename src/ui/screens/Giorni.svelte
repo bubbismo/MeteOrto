@@ -28,8 +28,8 @@
 <FrostBanner nights={insights.frost} />
 
 <div class="list">
-  {#each days as d}
-    <article class:sunny={d.sky === 'sun'}>
+  {#each days as d, i}
+    <article class="rise" style="--i:{i + 2}" class:sunny={d.sky === 'sun'}>
       <div class="name">{dayName(d.date, d.dayIndex)}<small>{d.date.slice(8, 10)}/{d.date.slice(5, 7)}</small></div>
       <WeatherIcon sky={d.sky} size={52} />
       <div class="temps"><b>{deg(d.tMax)}</b><span>{deg(d.tMin)}</span></div>
@@ -52,7 +52,10 @@
 <style>
   .list { display: grid; gap: 10px; }
   article { display: grid; grid-template-columns: 64px 52px 56px 1fr 44px; align-items: center; gap: 8px; background: #fff; border-radius: 22px; padding: 10px 12px; }
-  article.sunny { background: linear-gradient(90deg, #ffe08a, #fff1c2); }
+  article { position: relative; overflow: hidden; }
+  article.sunny { background: linear-gradient(90deg, #ffd45e, #fff1c2); border: 2px solid #ffc83d; }
+  article.sunny::after { content: ''; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 40%, #ffffff99 50%, transparent 60%); transform: translateX(-120%); animation: sweep 5.5s ease-in-out 1.2s infinite; pointer-events: none; }
+  @keyframes sweep { 0% { transform: translateX(-120%); } 35%, 100% { transform: translateX(120%); } }
   .name { font-weight: 700; display: grid; }
   .name small { font-weight: 400; opacity: 0.7; }
   .temps { display: grid; text-align: center; }

@@ -9,6 +9,8 @@
   import HorizonChart from '../components/HorizonChart.svelte'
   import IrrigationCard from '../components/IrrigationCard.svelte'
   import WorkWindowsCard from '../components/WorkWindowsCard.svelte'
+  import CountUp from '../components/CountUp.svelte'
+  import SkyFx from '../components/SkyFx.svelte'
   import WeatherIcon from '../components/WeatherIcon.svelte'
   import { deg, duration, mm, skyLabel } from '../format'
 
@@ -47,11 +49,14 @@
 {#if now}
   <FrostBanner nights={insights.frost} />
 
-  <section class="hero" class:sunny={now.sky === 'sun' && !night(now.time)}>
-    <WeatherIcon sky={now.sky} night={night(now.time)} size={140} />
-    <div class="temp">{deg(now.temperature)}</div>
-    <div class="label">{skyLabel(now.sky)}</div>
-    {#if today}<div class="minmax">↓ {deg(today.tMin)} &nbsp; ↑ {deg(today.tMax)}</div>{/if}
+  <section class="hero sky-{now.sky}" class:night={night(now.time)}>
+    <SkyFx sky={now.sky} night={night(now.time)} />
+    <div class="content">
+      <WeatherIcon sky={now.sky} night={night(now.time)} size={140} animated />
+      <div class="temp"><CountUp value={now.temperature} suffix="°" /></div>
+      <div class="label">{skyLabel(now.sky, night(now.time))}</div>
+      {#if today}<div class="minmax">↓ {deg(today.tMin)} &nbsp; ↑ {deg(today.tMax)}</div>{/if}
+    </div>
   </section>
 
   <section class="stats">
@@ -84,8 +89,8 @@
 
   <h2>Prossime ore</h2>
   <div class="hours">
-    {#each next as h}
-      <div class="hour">
+    {#each next as h, i}
+      <div class="hour rise" style="--i:{i + 4}">
         <small>{h.time.slice(11, 16)}</small>
         <WeatherIcon sky={h.sky} night={night(h.time)} size={40} />
         <b>{deg(h.temperature)}</b>
@@ -98,13 +103,23 @@
 {/if}
 
 <style>
-  .hero { text-align: center; padding: 16px 12px; border-radius: 28px; background: #fff; margin-bottom: 16px; }
-  .hero.sunny { background: linear-gradient(180deg, #ffe08a, #fff1c2); }
+  .hero { position: relative; overflow: hidden; text-align: center; padding: 16px 12px; border-radius: 28px; background: #fff; margin-bottom: 16px; transition: background 0.6s; }
+  .content { position: relative; z-index: 1; }
+  /* the card takes the colours of the sky */
+  .hero.sky-sun { background: linear-gradient(180deg, #ffd45e, #fff1c2); }
+  .hero.sky-partly { background: linear-gradient(180deg, #ffe9a8, #e6f4fd); }
+  .hero.sky-cloudy { background: linear-gradient(180deg, #dbe4ea, #f6f8fa); }
+  .hero.sky-rain { background: linear-gradient(180deg, #b9d6ea, #e8f1f8); }
+  .hero.sky-storm { background: linear-gradient(180deg, #9fb0c6, #dfe5ee); }
+  .hero.sky-snow { background: linear-gradient(180deg, #d9edf9, #ffffff); }
+  .hero.sky-fog { background: linear-gradient(180deg, #dfe3e6, #f4f5f6); }
+  .hero.night { background: linear-gradient(180deg, #1c2650, #3d4d80); color: #fff; }
+  .hero.night .minmax, .hero.night .label { color: #e8ecff; opacity: 1; }
   .temp { font-size: 4rem; font-weight: 800; line-height: 1; }
   .label { font-size: 1.2rem; margin-top: 4px; }
   .minmax { margin-top: 6px; opacity: 0.8; }
-  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 8px; }
-  .stats div { background: #fff; border-radius: 20px; padding: 10px 6px; text-align: center; display: grid; gap: 2px; }
+  .stats { box-shadow: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 8px; }
+  .stats div { box-shadow: var(--ombra); background: #fff; border-radius: 20px; padding: 10px 6px; text-align: center; display: grid; gap: 2px; }
   .stats span { font-size: 1.5rem; }
   .stats small { opacity: 0.7; font-size: 0.75rem; }
   .sun { background: #fff; border-radius: 24px; padding: 12px; margin-top: 8px; }
