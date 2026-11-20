@@ -89,7 +89,7 @@
     {#if tab === 'impostazioni'}
       <Impostazioni {location} {horizon} {onsave} onrecompute={() => refreshHorizon(true)} busy={horizonLoading} />
     {:else if data}
-      {#if tab === 'oggi'}<Oggi {data} {location} {horizon} />{:else}<Giorni {data} {location} {horizon} />{/if}
+      {#if tab === 'oggi'}<Oggi {data} {location} {horizon} horizonFailed={horizonTried && !horizon} />{:else}<Giorni {data} {location} {horizon} />{/if}
       <p class="age">{ageLabel(data.raw.fetchedAt)} · {data.raw.models.length} modelli</p>
     {:else if loading}
       <p class="center">Scarico le previsioni…</p>

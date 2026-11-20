@@ -6,7 +6,12 @@
   import WeatherIcon from '../components/WeatherIcon.svelte'
   import { deg, duration, mm, skyLabel } from '../format'
 
-  let { data, location, horizon }: { data: ForecastResult; location: Location; horizon: HorizonProfile | null } = $props()
+  let {
+    data,
+    location,
+    horizon,
+    horizonFailed = false,
+  }: { data: ForecastResult; location: Location; horizon: HorizonProfile | null; horizonFailed?: boolean } = $props()
 
   const offset = $derived(data.raw.utcOffsetSeconds)
   const nowHour = $derived(data.nowLocal.slice(0, 13) + ':00')
@@ -58,7 +63,9 @@
         <p class="times">Oggi il sole non arriva direttamente</p>
       {/if}
       <HorizonChart {horizon} date={today.date} utcOffsetSeconds={offset} lat={location.lat} lon={location.lon} {nowEpoch} />
-      {#if !horizon}<p class="sub">Calcolo l’orizzonte…</p>{/if}
+      {#if !horizon}
+        <p class="sub">{horizonFailed ? 'Orizzonte non disponibile: il sole è calcolato su un orizzonte piatto. Riprova da Impostazioni.' : 'Calcolo l’orizzonte…'}</p>
+      {/if}
     </section>
   {/if}
 
