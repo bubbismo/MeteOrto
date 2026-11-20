@@ -24,9 +24,28 @@
   const AZ_MIN = 40
   const AZ_MAX = 320
   const GROUND = 26 // height of the foreground garden strip
-  const SCALE = 1.5 // px per degree of altitude
+  const MAX_SCALE = 4 // px per degree: keeps hills from looking steeper than they are
   const x = (az: number) => ((az - AZ_MIN) / (AZ_MAX - AZ_MIN)) * W
-  const y = (alt: number) => H - GROUND - Math.min(alt, 75) * SCALE
+
+  /** Highest point to show: the sun at its culmination that day, or the highest ridge. */
+  const maxAlt = $derived.by(() => {
+    let m = 0
+    for (const p of horizon?.points ?? []) if (p.az >= AZ_MIN && p.az <= AZ_MAX) m = Math.max(m, p.alt)
+    if (date) {
+      const start = localToEpoch(date + 'T00:00', utcOffsetSeconds)
+      for (let t = start; t <= start + 86400000; t += 10 * 60000) m = Math.max(m, sunPosition(new Date(t), lat, lon).altitude)
+    }
+    return m
+  })
+  // Vertical zoom adapts to the day: a low winter sun is magnified, a high summer sun uses the full height
+  const scale = $derived(Math.min(MAX_SCALE, (H - GROUND - 14) / Math.max(25, maxAlt + 6)))
+  const y = (alt: number) => H - GROUND - Math.min(alt, 90) * scale
+  const guides = $derived.by(() => {
+    const step = maxAlt > 45 ? 20 : 10
+    const out: number[] = []
+    for (let a = step; a <= maxAlt + 4; a += step) out.push(a)
+    return out
+  })
   // The observer: bottom centre, where the light fan converges
   const P = { x: W / 2, y: H - GROUND + 6 }
 
@@ -120,7 +139,7 @@
     <rect width={W} height={H} fill="url(#hc-sky)" rx="16" />
 
     <!-- altitude guides -->
-    {#each [20, 40, 60] as a}
+    {#each guides as a}
       <line x1="0" x2={W} y1={y(a)} y2={y(a)} stroke="#fff" stroke-opacity="0.7" stroke-dasharray="2 5" />
       <text x="6" y={y(a) - 3} font-size="9" fill="#5a7d99">{a}°</text>
     {/each}
