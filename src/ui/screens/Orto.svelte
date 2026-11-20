@@ -2,13 +2,12 @@
   import type { Insights } from '../../app/insights'
   import type { JournalStore } from '../../app/journal.svelte'
   import { moonAt } from '../../core/moon/moon'
+  import { loadNav, saveNav, type OrtoView } from '../../app/navState'
   import type { Crop, UserCrops } from '../../core/sowing/crops'
   import DiarioView from './DiarioView.svelte'
   import LavoriView from './LavoriView.svelte'
   import Semine from './Semine.svelte'
   import TabellaColture from './TabellaColture.svelte'
-
-  type View = 'semine' | 'lavori' | 'diario'
 
   let {
     insights,
@@ -36,7 +35,12 @@
     onremove: (id: string) => void
   } = $props()
 
-  let view = $state<View>('semine')
+  type View = OrtoView
+  let view = $state<View>(loadNav().view)
+  function show(v: View) {
+    view = v
+    saveNav({ view: v, scroll: 0 })
+  }
   let editing = $state(false)
   const waxing = $derived(moonAt(today).waxing)
   const tabs: [View, string][] = [
@@ -51,7 +55,7 @@
 {:else}
   <div class="seg" role="tablist">
     {#each tabs as [v, label]}
-      <button role="tab" aria-selected={view === v} class:on={view === v} onclick={() => (view = v)}>{label}</button>
+      <button role="tab" aria-selected={view === v} class:on={view === v} onclick={() => show(v)}>{label}</button>
     {/each}
   </div>
 

@@ -13,6 +13,10 @@ annaffiatura, sole diretto con il profilo dell'orizzonte, semine, lavori del mes
 
 Dopo la prima apertura funziona anche senza rete: mostra l'ultima previsione scaricata.
 
+**Aggiornamenti**: quando esce una nuova versione compare l'avviso *«È pronta una nuova versione · Aggiorna»*. Nulla si
+ricarica da solo, e dopo l'aggiornamento torni nella stessa schermata in cui eri (se hai usato l'app da meno di mezz'ora;
+altrimenti si riparte da *Oggi*).
+
 ## Primo avvio
 
 Scegli la posizione del tuo orto in uno di questi modi:

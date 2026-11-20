@@ -20,10 +20,36 @@
   import { JournalStore } from '../app/journal.svelte'
   import Pioggia from './screens/Pioggia.svelte'
 
-  type Tab = 'oggi' | 'giorni' | 'pioggia' | 'orto' | 'impostazioni'
+  import { loadNav, saveNav, type Tab } from '../app/navState'
+  import UpdateToast from './components/UpdateToast.svelte'
 
   let location = $state<Location | null>(loadLocation())
-  let tab = $state<Tab>('oggi')
+  // back to where the person was, if they were here a moment ago (e.g. after an app update)
+  let tab = $state<Tab>(loadNav().tab)
+  let scrollRestored = false
+
+  function go(t: Tab) {
+    tab = t
+    saveNav({ tab: t, scroll: 0 })
+  }
+
+  // remember the scroll position (throttled)
+  let scrollTimer: ReturnType<typeof setTimeout> | undefined
+  function onscroll() {
+    clearTimeout(scrollTimer)
+    scrollTimer = setTimeout(() => saveNav({ scroll: Math.round(window.scrollY) }), 250)
+  }
+  $effect(() => {
+    window.addEventListener('scroll', onscroll, { passive: true })
+    return () => window.removeEventListener('scroll', onscroll)
+  })
+  // once the content is on screen, scroll to where the person was
+  $effect(() => {
+    if (!data || scrollRestored) return
+    scrollRestored = true
+    const y = loadNav().scroll
+    if (y > 0) setTimeout(() => window.scrollTo({ top: y, behavior: 'instant' }), 350)
+  })
   let data = $state<ForecastResult | null>(null)
   let loading = $state(false)
   let error = $state('')
@@ -130,7 +156,7 @@
     history = []
     climate = null
     extrasFor = ''
-    tab = 'oggi'
+    go('oggi')
     forecastTried = false
     refresh()
   }
@@ -218,12 +244,14 @@
     {/if}
   </main>
 
+  <UpdateToast />
+
   <nav aria-label="Sezioni">
-    <button class:active={tab === 'oggi'} onclick={() => (tab = 'oggi')}><span>☀️</span>Oggi</button>
-    <button class:active={tab === 'giorni'} onclick={() => (tab = 'giorni')}><span>📅</span>Giorni</button>
-    <button class:active={tab === 'pioggia'} onclick={() => (tab = 'pioggia')}><span>🌧️</span>Pioggia</button>
-    <button class:active={tab === 'orto'} onclick={() => (tab = 'orto')}><span>🌱</span>Orto</button>
-    <button class:active={tab === 'impostazioni'} onclick={() => (tab = 'impostazioni')}><span>⚙️</span>Impostazioni</button>
+    <button class:active={tab === 'oggi'} onclick={() => go('oggi')}><span>☀️</span>Oggi</button>
+    <button class:active={tab === 'giorni'} onclick={() => go('giorni')}><span>📅</span>Giorni</button>
+    <button class:active={tab === 'pioggia'} onclick={() => go('pioggia')}><span>🌧️</span>Pioggia</button>
+    <button class:active={tab === 'orto'} onclick={() => go('orto')}><span>🌱</span>Orto</button>
+    <button class:active={tab === 'impostazioni'} onclick={() => go('impostazioni')}><span>⚙️</span>Impostazioni</button>
   </nav>
 {/if}
 
