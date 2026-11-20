@@ -1,0 +1,17 @@
+:root {
+  --sole: #ffb627;
+  --pesca: #ffe9a8;
+  --crema: #fff7e0;
+  --foglia: #4caf50;
+  --cielo: #4fc3f7;
+  --testo: #4a3200;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  background: var(--crema);
+  color: var(--testo);
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
