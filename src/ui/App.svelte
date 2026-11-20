@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { DayHistory } from '../adapters/openmeteo/archive'
   import { loadLocation, loadMinSeasons, loadProxyUrl, loadSoil, saveLocation, saveMinSeasons, saveSoil } from '../adapters/storage/kv'
+  import { reverseGeocode } from '../adapters/geocoding/reverse'
   import { ApiLimitError } from '../adapters/openmeteo/forecast'
   import { loadForecast, type ForecastResult } from '../app/forecastService'
   import { loadHorizon } from '../app/horizonService'
@@ -100,6 +101,27 @@
     if (s) setSoil(s)
   }
 
+  /** "Pievetta, Santo Stefano d'Aveto (44.6863, 9.8568) · 432 m", or just the coordinates when the name is unknown. */
+  function placeLine(l: Location): string {
+    const coords = `${l.lat.toFixed(4)}, ${l.lon.toFixed(4)}`
+    const alt = l.elevation !== null ? ` · ${Math.round(l.elevation)} m` : ''
+    return l.name ? `${l.name} (${coords})${alt}` : `${coords}${alt}`
+  }
+
+  // locations saved before names existed get theirs once, in the background
+  let nameTried = false
+  $effect(() => {
+    if (!location || location.name || nameTried) return
+    nameTried = true
+    const here = location
+    reverseGeocode(here.lat, here.lon).then((name) => {
+      if (name && location && location.lat === here.lat && location.lon === here.lon) {
+        location = { ...location, name }
+        saveLocation(location)
+      }
+    })
+  })
+
   function setSoil(s: SoilType) {
     soil = s
     saveSoil(s)
@@ -164,6 +186,7 @@
     extrasFor = ''
     go('oggi')
     forecastTried = false
+    nameTried = !!loc.name
     refresh()
   }
 
@@ -200,9 +223,7 @@
   <header>
     <div>
       <b>MeteOrto</b>
-      <small>
-        {location.lat.toFixed(4)}, {location.lon.toFixed(4)}{location.elevation !== null ? ` · ${Math.round(location.elevation)} m` : ''}
-      </small>
+      <small class="where" title={placeLine(location)}>{placeLine(location)}</small>
     </div>
     <button class="icon" onclick={() => refresh(true)} disabled={loading} aria-label="Aggiorna le previsioni"><span class:spin={loading}>🔄</span></button>
   </header>
@@ -269,8 +290,9 @@
   h1 { margin: 0; font-size: 2.1rem; }
   .tagline { margin: -6px 0 6px; opacity: 0.8; }
   header { position: sticky; top: 0; z-index: 2; display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; background: linear-gradient(135deg, #ffc83d, #ffb627 60%, #ffa91c); box-shadow: 0 2px 12px #ff9f1c55; }
-  header div { display: grid; }
+  header div { display: grid; min-width: 0; }
   header small { opacity: 0.8; }
+  .where { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .icon { font-size: 1.4rem; background: none; border: 0; cursor: pointer; min-width: 44px; min-height: 44px; }
   .icon span { display: inline-block; }
   .spin { animation: rot 0.9s linear infinite; }

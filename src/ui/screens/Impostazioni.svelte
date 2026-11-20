@@ -83,7 +83,7 @@
 <h2>Crediti</h2>
 <p class="credits">
   Dati meteo e storico: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo.com</a> (licenza CC BY 4.0) con i modelli DWD ICON, Météo-France AROME, ECMWF IFS e ItaliaMeteo-ARPAE ICON-2I.
-  Rilievo del terreno: <a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noopener">Terrain Tiles</a> (Mapzen, AWS Open Data; dati SRTM, NASA, USGS e altri). Mappe: © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>, Esri.
+  Rilievo del terreno: <a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noopener">Terrain Tiles</a> (Mapzen, AWS Open Data; dati SRTM, NASA, USGS e altri). Mappe e nome della località: © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> (Nominatim), Esri.
   Sole e luna: <a href="https://github.com/mourner/suncalc" target="_blank" rel="noopener">SunCalc</a>. Le previsioni sono indicative: per decisioni importanti consulta anche i bollettini ufficiali.
 </p>
 

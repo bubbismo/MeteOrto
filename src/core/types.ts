@@ -5,6 +5,8 @@ export interface Location {
   lon: number
   /** Metres above sea level, when known. */
   elevation: number | null
+  /** Name of the nearest place, when known (e.g. "Pievetta, Santo Stefano d'Aveto"). */
+  name?: string
 }
 
 export const VARIABLES = [

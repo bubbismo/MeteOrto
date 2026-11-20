@@ -113,5 +113,5 @@ Per collegare Ecowitt, Davis o Netatmo basta scrivere un nuovo adapter che imple
 Dati meteo e storico: [Open-Meteo.com](https://open-meteo.com/) (CC BY 4.0, uso gratuito non commerciale). Il servizio
 gratuito ha un limite di richieste **per rete** (10.000 al giorno, contate più care se le richieste sono grandi): un
 uso normale ne consuma pochissime, ma dispositivi sullo stesso wifi condividono il limite. Il rilievo per l'orizzonte e
-l'altitudine arrivano invece da tile pubblici senza quota. Rilievo: [Terrain Tiles](https://registry.opendata.aws/terrain-tiles/) (Mapzen, AWS Open Data; SRTM, NASA, USGS e altri). Mappe: © OpenStreetMap, Esri.
+l'altitudine arrivano invece da tile pubblici senza quota. Rilievo: [Terrain Tiles](https://registry.opendata.aws/terrain-tiles/) (Mapzen, AWS Open Data; SRTM, NASA, USGS e altri). Mappe e nome della località: © OpenStreetMap (Nominatim), Esri.
 Sole e luna: [SunCalc](https://github.com/mourner/suncalc). Le previsioni sono indicative.

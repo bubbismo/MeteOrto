@@ -2,6 +2,7 @@
   import { untrack } from 'svelte'
   import { fetchElevation } from '../../adapters/openmeteo/elevation'
   import { terrainElevation } from '../../adapters/terrain/tiles'
+  import { reverseGeocode } from '../../adapters/geocoding/reverse'
   import { searchPlaces, type Place } from '../../adapters/openmeteo/geocoding'
   import { parseLocation } from '../../core/location/parse'
   import type { Location } from '../../core/types'
@@ -12,6 +13,8 @@
 
   let { onsave, initial = null }: { onsave: (loc: Location) => void; initial?: Location | null } = $props()
 
+  /** Name taken from the search result the person picked, used if the reverse lookup fails. */
+  let pickedName = $state<string | undefined>(undefined)
   let point = $state<Point | null>(untrack(() => (initial ? { lat: initial.lat, lon: initial.lon } : null)))
   let query = $state('')
   let results = $state<Place[]>([])
@@ -28,6 +31,7 @@
 
   function pick(p: Point) {
     point = p
+    pickedName = undefined
     message = ''
   }
 
@@ -66,6 +70,7 @@
     results = []
     query = p.label
     pick({ lat: p.lat, lon: p.lon })
+    pickedName = p.label.split(',')[0]
   }
 
   function usePasted() {
@@ -75,12 +80,16 @@
   }
 
   async function confirm() {
-    if (!point) return
+    const p = point
+    if (!p) return
     busy = true
     // terrain tiles first (no quota), the Open-Meteo elevation service only as a fallback
-    const elevation = (await terrainElevation(point.lat, point.lon)) ?? (await fetchElevation(point.lat, point.lon))
+    const [elevation, name] = await Promise.all([
+      terrainElevation(p.lat, p.lon).then((e) => e ?? fetchElevation(p.lat, p.lon)),
+      reverseGeocode(p.lat, p.lon),
+    ])
     busy = false
-    onsave({ lat: point.lat, lon: point.lon, elevation })
+    onsave({ lat: p.lat, lon: p.lon, elevation, name: name ?? pickedName })
   }
 </script>
 
