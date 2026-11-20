@@ -1,6 +1,7 @@
 <script lang="ts">
   import { untrack } from 'svelte'
   import { fetchElevation } from '../../adapters/openmeteo/elevation'
+  import { terrainElevation } from '../../adapters/terrain/tiles'
   import { searchPlaces, type Place } from '../../adapters/openmeteo/geocoding'
   import { parseLocation } from '../../core/location/parse'
   import type { Location } from '../../core/types'
@@ -76,7 +77,8 @@
   async function confirm() {
     if (!point) return
     busy = true
-    const elevation = await fetchElevation(point.lat, point.lon)
+    // terrain tiles first (no quota), the Open-Meteo elevation service only as a fallback
+    const elevation = (await terrainElevation(point.lat, point.lon)) ?? (await fetchElevation(point.lat, point.lon))
     busy = false
     onsave({ lat: point.lat, lon: point.lon, elevation })
   }

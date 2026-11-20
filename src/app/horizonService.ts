@@ -1,4 +1,4 @@
-import { demHorizon } from '../adapters/openmeteo/demHorizon'
+import { terrainHorizon } from '../adapters/terrain/tiles'
 import { pvgisHorizon } from '../adapters/pvgis/pvgis'
 import { kvGet, kvSet } from '../adapters/storage/kv'
 import type { HorizonProfile, Location } from '../core/types'
@@ -9,7 +9,7 @@ function cacheKey(loc: Location): string {
 
 /**
  * Horizon profile of a location, computed once and kept on the device.
- * Uses PVGIS when a proxy is configured, otherwise (or if PVGIS fails) the terrain model.
+ * Uses PVGIS when a proxy is configured, otherwise (or if PVGIS fails) the terrain tiles.
  */
 export async function loadHorizon(
   loc: Location,
@@ -27,7 +27,7 @@ export async function loadHorizon(
       profile = null
     }
   }
-  profile ??= await demHorizon.fetchHorizon(loc)
+  profile ??= await terrainHorizon.fetchHorizon(loc)
   await kvSet(cacheKey(loc), profile)
   return profile
 }

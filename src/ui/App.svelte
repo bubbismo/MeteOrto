@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { DayHistory } from '../adapters/openmeteo/archive'
   import { loadLocation, loadMinSeasons, loadProxyUrl, loadSoil, saveLocation, saveMinSeasons, saveSoil } from '../adapters/storage/kv'
+  import { ApiLimitError } from '../adapters/openmeteo/forecast'
   import { loadForecast, type ForecastResult } from '../app/forecastService'
   import { loadHorizon } from '../app/horizonService'
   import { loadClimate, loadHistory, type Climate } from '../app/historyService'
@@ -139,9 +140,14 @@
     try {
       data = await loadForecast(location, { force })
     } catch (e) {
-      error = String((e as Error).message).includes('429')
-        ? 'Il servizio meteo ha raggiunto il limite di richieste. Riprova tra qualche minuto.'
-        : 'Non riesco a scaricare le previsioni. Controlla la connessione.'
+      error =
+        e instanceof ApiLimitError
+          ? e.scope === 'giorno'
+            ? 'Il servizio meteo gratuito ha esaurito le richieste di oggi per la tua rete. Si azzerano a mezzanotte UTC (circa le 01:00 in Italia). Se sei sul wifi di casa prova con i dati del telefono: un altro dispositivo sulla stessa rete condivide il limite.'
+            : e.scope === 'ora'
+              ? 'Il servizio meteo ha raggiunto il limite di richieste di quest’ora. Riprova tra poco.'
+              : 'Troppe richieste in un minuto. Riprova tra un attimo.'
+          : 'Non riesco a scaricare le previsioni. Controlla la connessione.'
     } finally {
       loading = false
     }

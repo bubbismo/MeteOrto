@@ -53,8 +53,8 @@ l'app funziona per qualunque punto, quindi puoi condividerla con amici che vivon
 - **Annaffiatura**: bilancio idrico degli ultimi 21 giorni (pioggia, evapotraspirazione ET0, tipo di terreno) e pioggia
   prevista nelle 48 ore: *annaffia oggi*, *aspetta* oppure *non serve*.
 - **Sole diretto**: la posizione del sole ogni minuto confrontata con il profilo dell'orizzonte. Se PVGIS non è
-  configurato, l'orizzonte si calcola dal rilievo del terreno (equivalente: considera montagne e colline, non edifici
-  o alberi vicini).
+  configurato, l'orizzonte si calcola dal rilievo del terreno (tile pubblici, nessuna quota; sul punto di prova scarto
+  medio di 1° dai dati ufficiali PVGIS). Considera montagne e colline, non edifici o alberi vicini.
 - **Semine**: il periodo della tabella è solo la *finestra possibile*. Dentro la finestra decidono la temperatura del
   terreno (settimana passata e prossimi giorni) e le gelate previste: se il terreno è troppo freddo l'indicazione si
   sposta in avanti e l'app lo dice; se invece è prevista una gelata avvisa con giorno e minima e suggerisce le
@@ -110,6 +110,8 @@ Per collegare Ecowitt, Davis o Netatmo basta scrivere un nuovo adapter che imple
 
 ## Crediti e limiti
 
-Dati meteo e storico: [Open-Meteo.com](https://open-meteo.com/) (CC BY 4.0, uso gratuito non commerciale con limiti
-di richieste: bastano per uso personale e tra amici). Rilievo: Copernicus DEM. Mappe: © OpenStreetMap, Esri.
+Dati meteo e storico: [Open-Meteo.com](https://open-meteo.com/) (CC BY 4.0, uso gratuito non commerciale). Il servizio
+gratuito ha un limite di richieste **per rete** (10.000 al giorno, contate più care se le richieste sono grandi): un
+uso normale ne consuma pochissime, ma dispositivi sullo stesso wifi condividono il limite. Il rilievo per l'orizzonte e
+l'altitudine arrivano invece da tile pubblici senza quota. Rilievo: [Terrain Tiles](https://registry.opendata.aws/terrain-tiles/) (Mapzen, AWS Open Data; SRTM, NASA, USGS e altri). Mappe: © OpenStreetMap, Esri.
 Sole e luna: [SunCalc](https://github.com/mourner/suncalc). Le previsioni sono indicative.

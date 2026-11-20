@@ -74,10 +74,32 @@ export function parseForecast(json: any, fetchedAt: number): RawForecast {
   return { fetchedAt, utcOffsetSeconds: json.utc_offset_seconds ?? 0, times, models }
 }
 
+/** Open-Meteo refused the request because a usage limit was reached (free tier: per minute, hour or day). */
+export class ApiLimitError extends Error {
+  constructor(readonly scope: 'minuto' | 'ora' | 'giorno') {
+    super(`Open-Meteo: limite di richieste raggiunto (${scope})`)
+  }
+}
+
+/** Reads Open-Meteo's refusal text ("Daily API request limit exceeded…") into a limit scope, or null. */
+export function parseLimitReason(reason: string | undefined): ApiLimitError['scope'] | null {
+  const r = (reason ?? '').toLowerCase()
+  if (!r.includes('limit')) return null
+  if (r.includes('minut')) return 'minuto'
+  if (r.includes('hour')) return 'ora'
+  return 'giorno'
+}
+
 export const openMeteoForecast: ForecastProvider = {
   async fetchForecast(loc) {
     const res = await fetch(buildForecastUrl(loc))
-    if (!res.ok) throw new Error(`Open-Meteo: HTTP ${res.status}`)
+    if (!res.ok) {
+      if (res.status === 429) {
+        const body = await res.json().catch(() => null)
+        throw new ApiLimitError(parseLimitReason(body?.reason) ?? 'giorno')
+      }
+      throw new Error(`Open-Meteo: HTTP ${res.status}`)
+    }
     const raw = parseForecast(await res.json(), Date.now())
     if (raw.models.length === 0) throw new Error('Open-Meteo: nessun modello disponibile per questo punto')
     return raw

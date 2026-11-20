@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { buildForecastUrl, parseForecast } from './forecast'
+import { buildForecastUrl, parseForecast, parseLimitReason } from './forecast'
 
 describe('openmeteo forecast adapter', () => {
   it('builds a multi-model URL', () => {
@@ -37,5 +37,17 @@ describe('openmeteo forecast adapter', () => {
     expect(raw.models[0].convective?.wind500).toEqual([60, 90])
     expect(raw.models[0].convective?.freezingLevel).toEqual([null, 3100])
     expect(raw.models[0].convective?.dir10).toEqual([null, null])
+  })
+})
+
+describe('parseLimitReason', () => {
+  it('tells which limit was reached', () => {
+    expect(parseLimitReason('Daily API request limit exceeded. Please try again tomorrow.')).toBe('giorno')
+    expect(parseLimitReason('Hourly API request limit exceeded. Please try again in the next hour.')).toBe('ora')
+    expect(parseLimitReason('Minutely API request limit exceeded. Please try again in one minute.')).toBe('minuto')
+  })
+  it('is null for other errors', () => {
+    expect(parseLimitReason('Cannot initialize WeatherVariable from invalid String value')).toBeNull()
+    expect(parseLimitReason(undefined)).toBeNull()
   })
 })
