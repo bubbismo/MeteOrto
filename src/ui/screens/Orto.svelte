@@ -3,6 +3,7 @@
   import type { JournalStore } from '../../app/journal.svelte'
   import { moonAt } from '../../core/moon/moon'
   import { loadNav, saveNav, type OrtoView } from '../../app/navState'
+  import { scrollToTop } from '../motion'
   import type { Crop, UserCrops } from '../../core/sowing/crops'
   import DiarioView from './DiarioView.svelte'
   import LavoriView from './LavoriView.svelte'
@@ -38,6 +39,7 @@
   type View = OrtoView
   let view = $state<View>(loadNav().view)
   function show(v: View) {
+    scrollToTop()
     view = v
     saveNav({ view: v, scroll: 0 })
   }
@@ -51,7 +53,7 @@
 </script>
 
 {#if editing}
-  <TabellaColture {crops} user={userCrops} {onpatch} {onreset} {onadd} {onremove} onclose={() => (editing = false)} />
+  <TabellaColture {crops} user={userCrops} {onpatch} {onreset} {onadd} {onremove} onclose={() => ((editing = false), scrollToTop())} />
 {:else}
   <div class="seg" role="tablist">
     {#each tabs as [v, label]}
@@ -62,7 +64,7 @@
   {#key view}
     <div class="page">
       {#if view === 'semine'}
-        <Semine {insights} {today} onedit={() => (editing = true)} />
+        <Semine {insights} {today} onedit={() => ((editing = true), scrollToTop())} />
       {:else if view === 'lavori'}
         <LavoriView {insights} {waxing} />
       {:else}

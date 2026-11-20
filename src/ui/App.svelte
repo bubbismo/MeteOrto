@@ -24,13 +24,16 @@
 
   import { loadNav, saveNav, type Tab } from '../app/navState'
   import UpdateToast from './components/UpdateToast.svelte'
+  import { scrollToTop } from './motion'
 
   let location = $state<Location | null>(loadLocation())
   // back to where the person was, if they were here a moment ago (e.g. after an app update)
   let tab = $state<Tab>(loadNav().tab)
   let scrollRestored = false
 
+  // changing screen always starts from the top (also when tapping the screen you are already on)
   function go(t: Tab) {
+    scrollToTop()
     tab = t
     saveNav({ tab: t, scroll: 0 })
   }
