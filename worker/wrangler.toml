@@ -1,0 +1,6 @@
+name = "meteorto-pvgis"
+main = "pvgis-proxy.js"
+compatibility_date = "2025-01-01"
+
+# [vars]
+# ALLOWED_ORIGIN = "https://bubbismo.github.io"   # opzionale: accetta solo richieste dalla tua app

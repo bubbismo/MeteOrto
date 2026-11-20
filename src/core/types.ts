@@ -85,3 +85,19 @@ export interface CombinedForecast {
   hours: HourlyPoint[]
   days: DailySummary[]
 }
+
+/** One sample of the horizon: compass azimuth (0 = N, 90 = E, 180 = S, 270 = W) and obstruction height in degrees. */
+export interface HorizonPoint {
+  az: number
+  alt: number
+}
+
+export interface HorizonProfile {
+  source: 'pvgis' | 'dem'
+  /** Sorted by azimuth. */
+  points: HorizonPoint[]
+}
+
+export interface HorizonProvider {
+  fetchHorizon(loc: Location): Promise<HorizonProfile>
+}

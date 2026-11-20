@@ -48,3 +48,23 @@ export function saveLocation(loc: Location): void {
     // ignore
   }
 }
+
+const PROXY_KEY = 'meteorto.pvgisProxy'
+
+/** Optional address of the PVGIS proxy (Cloudflare Worker). */
+export function loadProxyUrl(): string {
+  try {
+    return localStorage.getItem(PROXY_KEY) ?? ''
+  } catch {
+    return ''
+  }
+}
+
+export function saveProxyUrl(url: string): void {
+  try {
+    if (url) localStorage.setItem(PROXY_KEY, url)
+    else localStorage.removeItem(PROXY_KEY)
+  } catch {
+    // ignore
+  }
+}

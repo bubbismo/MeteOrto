@@ -1,10 +1,12 @@
 <script lang="ts">
-  import { loadLocation, saveLocation } from '../adapters/storage/kv'
+  import { loadLocation, loadProxyUrl, saveLocation } from '../adapters/storage/kv'
   import { loadForecast, type ForecastResult } from '../app/forecastService'
-  import type { Location } from '../core/types'
+  import { loadHorizon } from '../app/horizonService'
+  import type { HorizonProfile, Location } from '../core/types'
   import LocationForm from './components/LocationForm.svelte'
   import { ageLabel } from './format'
   import Giorni from './screens/Giorni.svelte'
+  import Impostazioni from './screens/Impostazioni.svelte'
   import Oggi from './screens/Oggi.svelte'
 
   type Tab = 'oggi' | 'giorni' | 'impostazioni'
@@ -14,6 +16,22 @@
   let data = $state<ForecastResult | null>(null)
   let loading = $state(false)
   let error = $state('')
+  let horizon = $state<HorizonProfile | null>(null)
+  let horizonLoading = $state(false)
+  let horizonTried = $state(false)
+
+  async function refreshHorizon(force = false) {
+    if (!location) return
+    horizonLoading = true
+    try {
+      horizon = await loadHorizon(location, { force, proxyUrl: loadProxyUrl() || null })
+    } catch {
+      // without a horizon the sun is computed on a flat horizon
+    } finally {
+      horizonLoading = false
+      horizonTried = true
+    }
+  }
 
   async function refresh(force = false) {
     if (!location) return
@@ -32,12 +50,18 @@
     saveLocation(loc)
     location = loc
     data = null
+    horizon = null
+    horizonTried = false
     tab = 'oggi'
     refresh()
   }
 
   $effect(() => {
     if (location && !data && !loading) refresh()
+  })
+
+  $effect(() => {
+    if (location && !horizon && !horizonLoading && !horizonTried) refreshHorizon()
   })
 </script>
 
@@ -63,10 +87,9 @@
     {#if error}<p class="banner err">{error}</p>{/if}
 
     {#if tab === 'impostazioni'}
-      <h2>Posizione</h2>
-      <LocationForm {onsave} initial={location} />
+      <Impostazioni {location} {horizon} {onsave} onrecompute={() => refreshHorizon(true)} busy={horizonLoading} />
     {:else if data}
-      {#if tab === 'oggi'}<Oggi {data} />{:else}<Giorni {data} />{/if}
+      {#if tab === 'oggi'}<Oggi {data} {location} {horizon} />{:else}<Giorni {data} {location} {horizon} />{/if}
       <p class="age">{ageLabel(data.raw.fetchedAt)} · {data.raw.models.length} modelli</p>
     {:else if loading}
       <p class="center">Scarico le previsioni…</p>

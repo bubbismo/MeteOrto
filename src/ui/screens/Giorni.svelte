@@ -1,10 +1,17 @@
 <script lang="ts">
   import type { ForecastResult } from '../../app/forecastService'
+  import { daySun } from '../../core/sun/sun'
+  import type { HorizonProfile, Location } from '../../core/types'
   import WeatherIcon from '../components/WeatherIcon.svelte'
-  import { dayName, deg, mm, skyLabel } from '../format'
+  import { dayName, deg, duration, mm, skyLabel } from '../format'
 
-  let { data }: { data: ForecastResult } = $props()
-  const days = $derived(data.combined.days.slice(0, 5))
+  let { data, location, horizon }: { data: ForecastResult; location: Location; horizon: HorizonProfile | null } = $props()
+  const days = $derived(
+    data.combined.days.slice(0, 5).map((d) => ({
+      ...d,
+      sun: daySun(d.date, data.raw.utcOffsetSeconds, location.lat, location.lon, horizon, data.combined.hours.filter((h) => h.time.startsWith(d.date))),
+    })),
+  )
   const dots = { alta: 3, media: 2, bassa: 1 } as const
 </script>
 
@@ -17,6 +24,7 @@
       <div class="extra">
         <span title="Pioggia">🌧️ {mm(d.precipSum)} mm</span>
         <span title="Vento e raffiche">💨 {Math.round(d.windMax ?? 0)} / {Math.round(d.gustMax ?? 0)}</span>
+        <span title="Sole diretto nell’orto">☀️ {duration(d.sun.effectiveMinutes)}</span>
       </div>
       <div class="rel" title={`Affidabilità ${d.reliability.level}`} aria-label={`Affidabilità ${d.reliability.level}`}>
         {#each [1, 2, 3] as n}<i class:on={n <= dots[d.reliability.level]}></i>{/each}
