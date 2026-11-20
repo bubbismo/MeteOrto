@@ -1,0 +1,1396 @@
+[
+ {
+  "id": "pomodoro",
+  "name": "Pomodoro",
+  "emoji": "🍅",
+  "family": "Solanacee",
+  "periods": {
+   "semenzaio": [
+    {
+     "from": "02-15",
+     "to": "04-10"
+    }
+   ],
+   "trapianto": [
+    {
+     "from": "05-01",
+     "to": "06-15"
+    }
+   ]
+  },
+  "soilTempMin": 12,
+  "frost": "sensibile",
+  "depthCm": 0.5,
+  "spacingCm": [
+   80,
+   50
+  ],
+  "germinationDays": [
+   6,
+   12
+  ],
+  "harvestDays": [
+   70,
+   100
+  ],
+  "moon": "crescente",
+  "notes": "Tutori, pacciamatura e annaffiature regolari; teme le gelate tardive."
+ },
+ {
+  "id": "peperone",
+  "name": "Peperone",
+  "emoji": "🫑",
+  "family": "Solanacee",
+  "periods": {
+   "semenzaio": [
+    {
+     "from": "02-15",
+     "to": "04-15"
+    }
+   ],
+   "trapianto": [
+    {
+     "from": "05-10",
+     "to": "06-15"
+    }
+   ]
+  },
+  "soilTempMin": 14,
+  "frost": "sensibile",
+  "depthCm": 0.5,
+  "spacingCm": [
+   70,
+   40
+  ],
+  "germinationDays": [
+   10,
+   20
+  ],
+  "harvestDays": [
+   70,
+   100
+  ],
+  "moon": "crescente",
+  "notes": "Ama il caldo: metti a dimora a terreno ben scaldato."
+ },
+ {
+  "id": "peperoncino",
+  "name": "Peperoncino",
+  "emoji": "🌶️",
+  "family": "Solanacee",
+  "periods": {
+   "semenzaio": [
+    {
+     "from": "02-10",
+     "to": "04-10"
+    }
+   ],
+   "trapianto": [
+    {
+     "from": "05-10",
+     "to": "06-15"
+    }
+   ]
+  },
+  "soilTempMin": 15,
+  "frost": "sensibile",
+  "depthCm": 0.5,
+  "spacingCm": [
+   70,
+   40
+  ],
+  "germinationDays": [
+   10,
+   25
+  ],
+  "harvestDays": [
+   80,
+   120
+  ],
+  "moon": "crescente",
+  "notes": "Germina lentamente: semenzaio al caldo."
+ },
+ {
+  "id": "melanzana",
+  "name": "Melanzana",
+  "emoji": "🍆",
+  "family": "Solanacee",
+  "periods": {
+   "semenzaio": [
+    {
+     "from": "02-15",
+     "to": "04-10"
+    }
+   ],
+   "trapianto": [
+    {
+     "from": "05-10",
+     "to": "06-10"
+    }
+   ]
+  },
+  "soilTempMin": 15,
+  "frost": "sensibile",
+  "depthCm": 0.5,
+  "spacingCm": [
+   80,
+   50
+  ],
+  "germinationDays": [
+   10,
+   18
+  ],
+  "harvestDays": [
+   75,
+   100
+  ],
+  "moon": "crescente",
+  "notes": "Molto sensibile al freddo."
+ },
+ {
+  "id": "patata",
+  "name": "Patata",
+  "emoji": "🥔",
+  "family": "Solanacee",
+  "periods": {
+   "diretta": [
+    {
+     "from": "03-10",
+     "to": "05-15"
+    }
+   ]
+  },
+  "soilTempMin": 8,
+  "frost": "sensibile",
+  "depthCm": 10,
+  "spacingCm": [
+   70,
+   30
+  ],
+  "germinationDays": [
+   15,
+   30
+  ],
+  "harvestDays": [
+   90,
+   130
+  ],
+  "moon": "calante",
+  "notes": "Tuberi da seme pregermogliati; rincalzare quando le piante sono alte 20 cm."
+ },
+ {
+  "id": "zucchina",
+  "name": "Zucchina",
+  "emoji": "🥒",
+  "family": "Cucurbitacee",
+  "periods": {
+   "semenzaio": [
+    {
+     "from": "04-01",
+     "to": "05-10"
+    }
+   ],
+   "diretta": [
+    {
+     "from": "04-25",
+     "to": "07-15"
+    }
+   ],
+   "trapianto": [
+    {
+     "from": "05-01",
+     "to": "06-30"
+    }
+   ]
+  },
+  "soilTempMin": 15,
+  "frost": "sensibile",
+  "depthCm": 3,
+  "spacingCm": [
+   120,
+   80
+  ],
+  "germinationDays": [
+   5,
+   10
+  ],
+  "harvestDays": [
+   45,
+   65
+  ],
+  "moon": "crescente",
+  "notes": "Semine scalari fino a luglio per raccolti continui."
+ },
+ {
+  "id": "cetriolo",
+  "name": "Cetriolo",
+  "emoji": "🥒",
+  "family": "Cucurbitacee",
+  "periods": {
+   "semenzaio": [
+    {
+     "from": "04-01",
+     "to": "05-10"
+    }
+   ],
+   "diretta": [
+    {
+     "from": "05-01",
+     "to": "06-30"
+    }
+   ],
+   "trapianto": [
+    {
+     "from": "05-10",
+     "to": "07-10"
+    }
+   ]
+  },
+  "soilTempMin": 15,
+  "frost": "sensibile",
+  "depthCm": 2,
+  "spacingCm": [
+   100,
+   40
+  ],
+  "germinationDays": [
+   5,
+   10
+  ],
+  "harvestDays": [
+   50,
+   70
+  ],
+  "moon": "crescente",
+  "notes": "Su rete o tutore occupa meno spazio."
+ },
+ {
+  "id": "zucca",
+  "name": "Zucca",
+  "emoji": "🎃",
+  "family": "Cucurbitacee",
+  "periods": {
+   "semenzaio": [
+    {
+     "from": "04-10",
+     "to": "05-15"
+    }
+   ],
+   "diretta": [
+    {
+     "from": "04-25",
+     "to": "06-15"
+    }
+   ],
+   "trapianto": [
+    {
+     "from": "05-10",
+     "to": "06-15"
+    }
+   ]
+  },
+  "soilTempMin": 15,
+  "frost": "sensibile",
+  "depthCm": 3,
+  "spacingCm": [
+   200,
+   150
+  ],
+  "germinationDays": [
+   5,
+   10
+  ],
+  "harvestDays": [
+   100,
+   140
+  ],
+  "moon": "crescente",
+  "notes": "Serve molto spazio e terreno ricco."
+ },
+ {
+  "id": "anguria",
+  "name": "Anguria",
+  "emoji": "🍉",
+  "family": "Cucurbitacee",
+  "periods": {
+   "semenzaio": [
+    {
+     "from": "04-01",
+     "to": "05-10"
+    }
+   ],
+   "diretta": [
+    {
+     "from": "05-10",
+     "to": "06-10"
+    }
+   ],
+   "trapianto": [
+    {
+     "from": "05-15",
+     "to": "06-20"
+    }
+   ]
+  },
+  "soilTempMin": 16,
+  "frost": "sensibile",
+  "depthCm": 3,
+  "spacingCm": [
+   250,
+   100
+  ],
+  "germinationDays": [
+   5,
+   10
+  ],
+  "harvestDays": [
+   90,
+   120
+  ],
+  "moon": "crescente",
+  "notes": "Pretende caldo e sole pieno."
+ },
+ {
+  "id": "melone",
+  "name": "Melone",
+  "emoji": "🍈",
+  "family": "Cucurbitacee",
+  "periods": {
+   "semenzaio": [
+    {
+     "from": "04-01",
+     "to": "05-10"
+    }
+   ],
+   "diretta": [
+    {
+     "from": "05-10",
+     "to": "06-10"
+    }
+   ],
+   "trapianto": [
+    {
+     "from": "05-15",
+     "to": "06-20"
+    }
+   ]
+  },
+  "soilTempMin": 16,
+  "frost": "sensibile",
+  "depthCm": 3,
+  "spacingCm": [
+   200,
+   80
+  ],
+  "germinationDays": [
+   5,
+   10
+  ],
+  "harvestDays": [
+   80,
+   110
+  ],
+  "moon": "crescente",
+  "notes": "Pacciamatura scura aiuta a scaldare il terreno."
+ },
+ {
+  "id": "fagiolino-nano",
+  "name": "Fagiolino nano",
+  "emoji": "🫘",
+  "family": "Leguminose",
+  "periods": {
+   "diretta": [
+    {
+     "from": "04-25",
+     "to": "08-15"
+    }
+   ]
+  },
+  "soilTempMin": 12,
+  "frost": "sensibile",
+  "depthCm": 3,
+  "spacingCm": [
+   40,
+   6
+  ],
+  "germinationDays": [
+   6,
+   12
+  ],
+  "harvestDays": [
+   50,
+   70
+  ],
+  "moon": "crescente",
+  "notes": "Semine scalari ogni 2-3 settimane."
+ },
+ {
+  "id": "fagiolo-rampicante",
+  "name": "Fagiolo rampicante",
+  "emoji": "🫘",
+  "family": "Leguminose",
+  "periods": {
+   "diretta": [
+    {
+     "from": "05-01",
+     "to": "07-15"
+    }
+   ]
+  },
+  "soilTempMin": 13,
+  "frost": "sensibile",
+  "depthCm": 4,
+  "spacingCm": [
+   80,
+   15
+  ],
+  "germinationDays": [
+   6,
+   12
+  ],
+  "harvestDays": [
+   65,
+   90
+  ],
+  "moon": "crescente",
+  "notes": "Servono tutori o rete."
+ },
+ {
+  "id": "pisello",
+  "name": "Pisello",
+  "emoji": "🟢",
+  "family": "Leguminose",
+  "periods": {
+   "diretta": [
+    {
+     "from": "02-15",
+     "to": "04-15"
+    },
+    {
+     "from": "10-20",
+     "to": "11-20"
+    }
+   ]
+  },
+  "soilTempMin": 6,
+  "frost": "resistente",
+  "depthCm": 3,
+  "spacingCm": [
+   60,
+   5
+  ],
+  "germinationDays": [
+   10,
+   20
+  ],
+  "harvestDays": [
+   70,
+   100
+  ],
+  "moon": "crescente",
+  "notes": "Semina autunnale solo nelle zone miti."
+ },
+ {
+  "id": "fava",
+  "name": "Fava",
+  "emoji": "🫛",
+  "family": "Leguminose",
+  "periods": {
+   "diretta": [
+    {
+     "from": "10-15",
+     "to": "11-30"
+    },
+    {
+     "from": "02-01",
+     "to": "03-31"
+    }
+   ]
+  },
+  "soilTempMin": 5,
+  "frost": "resistente",
+  "depthCm": 4,
+  "spacingCm": [
+   60,
+   10
+  ],
+  "germinationDays": [
+   10,
+   20
+  ],
+  "harvestDays": [
+   100,
+   170
+  ],
+  "moon": "crescente",
+  "notes": "Rustica: ottima come primo raccolto."
+ },
+ {
+  "id": "lattuga",
+  "name": "Lattuga",
+  "emoji": "🥬",
+  "family": "Composite",
+  "periods": {
+   "semenzaio": [
+    {
+     "from": "02-01",
+     "to": "08-31"
+    }
+   ],
+   "diretta": [
+    {
+     "from": "03-01",
+     "to": "09-15"
+    }
+   ],
+   "trapianto": [
+    {
+     "from": "03-10",
+     "to": "10-10"
+    }
+   ]
+  },
+  "soilTempMin": 6,
+  "frost": "tollerante",
+  "depthCm": 0.5,
+  "spacingCm": [
+   30,
+   25
+  ],
+  "germinationDays": [
+   4,
+   10
+  ],
+  "harvestDays": [
+   40,
+   70
+  ],
+  "moon": "crescente",
+  "notes": "In piena estate scegli varietà resistenti alla montata e posizioni ombreggiate."
+ },
+ {
+  "id": "rucola",
+  "name": "Rucola",
+  "emoji": "🌿",
+  "family": "Crucifere",
+  "periods": {
+   "diretta": [
+    {
+     "from": "03-01",
+     "to": "10-15"
+    }
+   ]
+  },
+  "soilTempMin": 5,
+  "frost": "tollerante",
+  "depthCm": 1,
+  "spacingCm": [
+   20,
+   3
+  ],
+  "germinationDays": [
+   4,
+   8
+  ],
+  "harvestDays": [
+   30,
+   50
+  ],
+  "moon": "crescente",
+  "notes": "Raccolta a più riprese."
+ },
+ {
+  "id": "spinacio",
+  "name": "Spinacio",
+  "emoji": "🥬",
+  "family": "Chenopodiacee",
+  "periods": {
+   "diretta": [
+    {
+     "from": "02-15",
+     "to": "04-30"
+    },
+    {
+     "from": "08-20",
+     "to": "10-31"
+    }
+   ]
+  },
+  "soilTempMin": 4,
+  "frost": "resistente",
+  "depthCm": 2,
+  "spacingCm": [
+   25,
+   5
+  ],
+  "germinationDays": [
+   6,
+   14
+  ],
+  "harvestDays": [
+   40,
+   60
+  ],
+  "moon": "crescente",
+  "notes": "Con il caldo sale a seme: semina in primavera presto o in autunno."
+ },
+ {
+  "id": "bietola",
+  "name": "Bietola da foglia",
+  "emoji": "🥬",
+  "family": "Chenopodiacee",
+  "periods": {
+   "diretta": [
+    {
+     "from": "03-15",
+     "to": "08-15"
+    }
+   ],
+   "trapianto": [
+    {
+     "from": "04-15",
+     "to": "09-15"
+    }
+   ]
+  },
+  "soilTempMin": 8,
+  "frost": "tollerante",
+  "depthCm": 2,
+  "spacingCm": [
+   40,
+   25
+  ],
+  "germinationDays": [
+   7,
+   14
+  ],
+  "harvestDays": [
+   55,
+   80
+  ],
+  "moon": "crescente",
+  "notes": "Si raccoglie a foglie per mesi."
+ },
+ {
+  "id": "cavolfiore",
+  "name": "Cavolfiore",
+  "emoji": "🥦",
+  "family": "Crucifere",
+  "periods": {
+   "semenzaio": [
+    {
+     "from": "03-15",
+     "to": "07-15"
+    }
+   ],
+   "trapianto": [
+    {
+     "from": "05-01",
+     "to": "08-31"
+    }
+   ]
+  },
+  "soilTempMin": 6,
+  "frost": "tollerante",
+  "depthCm": 1,
+  "spacingCm": [
+   60,
+   50
+  ],
+  "germinationDays": [
+   5,
+   10
+  ],
+  "harvestDays": [
+   90,
+   150
+  ],
+  "moon": "crescente",
+  "notes": "Annaffiature regolari; proteggi dai cavolaroni."
+ },
+ {
+  "id": "broccolo",
+  "name": "Broccolo",
+  "emoji": "🥦",
+  "family": "Crucifere",
+  "periods": {
+   "semenzaio": [
+    {
+     "from": "03-15",
+     "to": "07-15"
+    }
+   ],
+   "trapianto": [
+    {
+     "from": "05-01",
+     "to": "08-15"
+    }
+   ]
+  },
+  "soilTempMin": 6,
+  "frost": "tollerante",
+  "depthCm": 1,
+  "spacingCm": [
+   60,
+   50
+  ],
+  "germinationDays": [
+   5,
+   10
+  ],
+  "harvestDays": [
+   90,
+   130
+  ],
+  "moon": "crescente"
+ },
+ {
+  "id": "cavolo-cappuccio",
+  "name": "Cavolo cappuccio",
+  "emoji": "🥬",
+  "family": "Crucifere",
+  "periods": {
+   "semenzaio": [
+    {
+     "from": "02-15",
+     "to": "07-15"
+    }
+   ],
+   "trapianto": [
+    {
+     "from": "04-01",
+     "to": "08-15"
+    }
+   ]
+  },
+  "soilTempMin": 6,
+  "frost": "resistente",
+  "depthCm": 1,
+  "spacingCm": [
+   60,
+   50
+  ],
+  "germinationDays": [
+   5,
+   10
+  ],
+  "harvestDays": [
+   80,
+   150
+  ],
+  "moon": "crescente"
+ },
+ {
+  "id": "verza",
+  "name": "Verza",
+  "emoji": "🥬",
+  "family": "Crucifere",
+  "periods": {
+   "semenzaio": [
+    {
+     "from": "04-15",
+     "to": "07-15"
+    }
+   ],
+   "trapianto": [
+    {
+     "from": "06-01",
+     "to": "08-31"
+    }
+   ]
+  },
+  "soilTempMin": 6,
+  "frost": "resistente",
+  "depthCm": 1,
+  "spacingCm": [
+   60,
+   50
+  ],
+  "germinationDays": [
+   5,
+   10
+  ],
+  "harvestDays": [
+   100,
+   160
+  ],
+  "moon": "crescente",
+  "notes": "Il freddo ne migliora il sapore."
+ },
+ {
+  "id": "cavolo-nero",
+  "name": "Cavolo nero",
+  "emoji": "🥬",
+  "family": "Crucifere",
+  "periods": {
+   "semenzaio": [
+    {
+     "from": "04-15",
+     "to": "06-30"
+    }
+   ],
+   "trapianto": [
+    {
+     "from": "06-01",
+     "to": "08-15"
+    }
+   ]
+  },
+  "soilTempMin": 6,
+  "frost": "resistente",
+  "depthCm": 1,
+  "spacingCm": [
+   60,
+   40
+  ],
+  "germinationDays": [
+   5,
+   10
+  ],
+  "harvestDays": [
+   100,
+   180
+  ],
+  "moon": "crescente",
+  "notes": "Resiste bene al gelo."
+ },
+ {
+  "id": "finocchio",
+  "name": "Finocchio",
+  "emoji": "🌿",
+  "family": "Ombrellifere",
+  "periods": {
+   "semenzaio": [
+    {
+     "from": "06-01",
+     "to": "07-31"
+    }
+   ],
+   "diretta": [
+    {
+     "from": "06-15",
+     "to": "07-31"
+    }
+   ],
+   "trapianto": [
+    {
+     "from": "07-01",
+     "to": "08-31"
+    }
+   ]
+  },
+  "soilTempMin": 10,
+  "frost": "tollerante",
+  "depthCm": 1,
+  "spacingCm": [
+   50,
+   25
+  ],
+  "germinationDays": [
+   8,
+   14
+  ],
+  "harvestDays": [
+   80,
+   110
+  ],
+  "moon": "crescente",
+  "notes": "Semina dopo il solstizio per evitare la salita a seme."
+ },
+ {
+  "id": "carota",
+  "name": "Carota",
+  "emoji": "🥕",
+  "family": "Ombrellifere",
+  "periods": {
+   "diretta": [
+    {
+     "from": "03-01",
+     "to": "08-15"
+    }
+   ]
+  },
+  "soilTempMin": 7,
+  "frost": "tollerante",
+  "depthCm": 1,
+  "spacingCm": [
+   25,
+   3
+  ],
+  "germinationDays": [
+   10,
+   20
+  ],
+  "harvestDays": [
+   90,
+   130
+  ],
+  "moon": "calante",
+  "notes": "Terreno sciolto e senza sassi; diradare le piantine."
+ },
+ {
+  "id": "cipolla",
+  "name": "Cipolla",
+  "emoji": "🧅",
+  "family": "Liliacee",
+  "periods": {
+   "semenzaio": [
+    {
+     "from": "01-15",
+     "to": "03-15"
+    }
+   ],
+   "diretta": [
+    {
+     "from": "02-15",
+     "to": "04-15"
+    }
+   ],
+   "trapianto": [
+    {
+     "from": "03-15",
+     "to": "05-15"
+    }
+   ]
+  },
+  "soilTempMin": 5,
+  "frost": "resistente",
+  "depthCm": 1,
+  "spacingCm": [
+   25,
+   8
+  ],
+  "germinationDays": [
+   8,
+   15
+  ],
+  "harvestDays": [
+   120,
+   180
+  ],
+  "moon": "calante"
+ },
+ {
+  "id": "aglio",
+  "name": "Aglio",
+  "emoji": "🧄",
+  "family": "Liliacee",
+  "periods": {
+   "diretta": [
+    {
+     "from": "10-15",
+     "to": "12-10"
+    },
+    {
+     "from": "02-01",
+     "to": "03-15"
+    }
+   ]
+  },
+  "soilTempMin": 3,
+  "frost": "resistente",
+  "depthCm": 4,
+  "spacingCm": [
+   25,
+   10
+  ],
+  "germinationDays": [
+   15,
+   30
+  ],
+  "harvestDays": [
+   180,
+   240
+  ],
+  "moon": "calante",
+  "notes": "Si piantano gli spicchi con la punta in su."
+ },
+ {
+  "id": "porro",
+  "name": "Porro",
+  "emoji": "🧅",
+  "family": "Liliacee",
+  "periods": {
+   "semenzaio": [
+    {
+     "from": "02-15",
+     "to": "05-15"
+    }
+   ],
+   "trapianto": [
+    {
+     "from": "05-15",
+     "to": "08-15"
+    }
+   ]
+  },
+  "soilTempMin": 6,
+  "frost": "resistente",
+  "depthCm": 2,
+  "spacingCm": [
+   30,
+   10
+  ],
+  "germinationDays": [
+   10,
+   18
+  ],
+  "harvestDays": [
+   120,
+   180
+  ],
+  "moon": "calante",
+  "notes": "Mettilo a dimora in un solco profondo."
+ },
+ {
+  "id": "ravanello",
+  "name": "Ravanello",
+  "emoji": "🌱",
+  "family": "Crucifere",
+  "periods": {
+   "diretta": [
+    {
+     "from": "03-01",
+     "to": "10-15"
+    }
+   ]
+  },
+  "soilTempMin": 5,
+  "frost": "tollerante",
+  "depthCm": 1,
+  "spacingCm": [
+   15,
+   3
+  ],
+  "germinationDays": [
+   3,
+   6
+  ],
+  "harvestDays": [
+   25,
+   40
+  ],
+  "moon": "calante",
+  "notes": "Il più veloce dell’orto."
+ },
+ {
+  "id": "rapa",
+  "name": "Rapa",
+  "emoji": "⚪",
+  "family": "Crucifere",
+  "periods": {
+   "diretta": [
+    {
+     "from": "03-01",
+     "to": "04-30"
+    },
+    {
+     "from": "08-01",
+     "to": "09-30"
+    }
+   ]
+  },
+  "soilTempMin": 6,
+  "frost": "resistente",
+  "depthCm": 1,
+  "spacingCm": [
+   30,
+   10
+  ],
+  "germinationDays": [
+   4,
+   8
+  ],
+  "harvestDays": [
+   60,
+   80
+  ],
+  "moon": "calante"
+ },
+ {
+  "id": "barbabietola",
+  "name": "Barbabietola rossa",
+  "emoji": "🟣",
+  "family": "Chenopodiacee",
+  "periods": {
+   "diretta": [
+    {
+     "from": "04-01",
+     "to": "07-15"
+    }
+   ]
+  },
+  "soilTempMin": 7,
+  "frost": "tollerante",
+  "depthCm": 2,
+  "spacingCm": [
+   30,
+   10
+  ],
+  "germinationDays": [
+   7,
+   12
+  ],
+  "harvestDays": [
+   60,
+   90
+  ],
+  "moon": "calante",
+  "notes": "Il glomerulo dà più piantine: dirada."
+ },
+ {
+  "id": "sedano",
+  "name": "Sedano",
+  "emoji": "🌿",
+  "family": "Ombrellifere",
+  "periods": {
+   "semenzaio": [
+    {
+     "from": "02-15",
+     "to": "05-01"
+    }
+   ],
+   "trapianto": [
+    {
+     "from": "05-15",
+     "to": "07-15"
+    }
+   ]
+  },
+  "soilTempMin": 10,
+  "frost": "sensibile",
+  "depthCm": 0.5,
+  "spacingCm": [
+   50,
+   30
+  ],
+  "germinationDays": [
+   12,
+   21
+  ],
+  "harvestDays": [
+   100,
+   140
+  ],
+  "moon": "crescente",
+  "notes": "Il seme ha bisogno di luce per germinare."
+ },
+ {
+  "id": "prezzemolo",
+  "name": "Prezzemolo",
+  "emoji": "🌿",
+  "family": "Ombrellifere",
+  "periods": {
+   "diretta": [
+    {
+     "from": "03-01",
+     "to": "08-31"
+    }
+   ]
+  },
+  "soilTempMin": 8,
+  "frost": "tollerante",
+  "depthCm": 1,
+  "spacingCm": [
+   25,
+   5
+  ],
+  "germinationDays": [
+   15,
+   30
+  ],
+  "harvestDays": [
+   60,
+   90
+  ],
+  "moon": "crescente",
+  "notes": "Germina lentamente: abbi pazienza."
+ },
+ {
+  "id": "basilico",
+  "name": "Basilico",
+  "emoji": "🌿",
+  "family": "Labiate",
+  "periods": {
+   "semenzaio": [
+    {
+     "from": "03-15",
+     "to": "05-15"
+    }
+   ],
+   "diretta": [
+    {
+     "from": "05-10",
+     "to": "07-15"
+    }
+   ],
+   "trapianto": [
+    {
+     "from": "05-10",
+     "to": "07-01"
+    }
+   ]
+  },
+  "soilTempMin": 14,
+  "frost": "sensibile",
+  "depthCm": 0.5,
+  "spacingCm": [
+   30,
+   20
+  ],
+  "germinationDays": [
+   5,
+   10
+  ],
+  "harvestDays": [
+   50,
+   70
+  ],
+  "moon": "crescente",
+  "notes": "Teme il freddo anche senza gelo."
+ },
+ {
+  "id": "radicchio",
+  "name": "Radicchio",
+  "emoji": "🥬",
+  "family": "Composite",
+  "periods": {
+   "semenzaio": [
+    {
+     "from": "06-01",
+     "to": "07-31"
+    }
+   ],
+   "diretta": [
+    {
+     "from": "06-15",
+     "to": "08-31"
+    }
+   ],
+   "trapianto": [
+    {
+     "from": "07-15",
+     "to": "09-10"
+    }
+   ]
+  },
+  "soilTempMin": 10,
+  "frost": "resistente",
+  "depthCm": 1,
+  "spacingCm": [
+   30,
+   25
+  ],
+  "germinationDays": [
+   5,
+   10
+  ],
+  "harvestDays": [
+   90,
+   120
+  ],
+  "moon": "crescente"
+ },
+ {
+  "id": "indivia",
+  "name": "Indivia e scarola",
+  "emoji": "🥬",
+  "family": "Composite",
+  "periods": {
+   "semenzaio": [
+    {
+     "from": "06-01",
+     "to": "08-15"
+    }
+   ],
+   "trapianto": [
+    {
+     "from": "07-01",
+     "to": "09-10"
+    }
+   ]
+  },
+  "soilTempMin": 10,
+  "frost": "tollerante",
+  "depthCm": 1,
+  "spacingCm": [
+   30,
+   25
+  ],
+  "germinationDays": [
+   5,
+   10
+  ],
+  "harvestDays": [
+   80,
+   100
+  ],
+  "moon": "crescente"
+ },
+ {
+  "id": "mais-dolce",
+  "name": "Mais dolce",
+  "emoji": "🌽",
+  "family": "Graminacee",
+  "periods": {
+   "diretta": [
+    {
+     "from": "04-25",
+     "to": "06-30"
+    }
+   ]
+  },
+  "soilTempMin": 12,
+  "frost": "sensibile",
+  "depthCm": 4,
+  "spacingCm": [
+   70,
+   25
+  ],
+  "germinationDays": [
+   6,
+   12
+  ],
+  "harvestDays": [
+   80,
+   110
+  ],
+  "moon": "crescente",
+  "notes": "Semina a file vicine per una buona impollinazione."
+ },
+ {
+  "id": "fragola",
+  "name": "Fragola",
+  "emoji": "🍓",
+  "family": "Rosacee",
+  "periods": {
+   "trapianto": [
+    {
+     "from": "03-01",
+     "to": "04-30"
+    },
+    {
+     "from": "08-15",
+     "to": "10-15"
+    }
+   ]
+  },
+  "soilTempMin": 6,
+  "frost": "resistente",
+  "depthCm": 0,
+  "spacingCm": [
+   40,
+   30
+  ],
+  "germinationDays": [
+   0,
+   0
+  ],
+  "harvestDays": [
+   60,
+   90
+  ],
+  "moon": "crescente",
+  "notes": "Si mettono a dimora le piantine (stoloni)."
+ }
+]

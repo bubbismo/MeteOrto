@@ -25,8 +25,9 @@ export async function kvGet<T>(key: string): Promise<T | undefined> {
 export async function kvSet(key: string, value: unknown): Promise<void> {
   try {
     await (await db()).put('kv', value, key)
-  } catch {
-    // storage unavailable (private mode, quota): the app keeps working without cache
+  } catch (err) {
+    // storage unavailable (private mode, quota): the app keeps working without it
+    console.warn(`Salvataggio locale non riuscito (${key}):`, err)
   }
 }
 

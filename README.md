@@ -4,7 +4,22 @@ Meteo su misura per il tuo orto: previsioni a breve termine per un punto preciso
 allerta gelo, consigli di annaffiatura e di semina. Web app installabile (PWA),
 tutti i dati restano sul tuo dispositivo.
 
-> Stato: **fase 1** (scheletro PWA e deploy). Le funzioni meteo arrivano nelle fasi successive.
+> Stato: previsioni multi-modello, sole diretto con orizzonte, gelo, pioggia e annaffiatura,
+> luna e calendario delle semine. In arrivo: diario dell'orto e lavori del mese.
+
+## Cosa fa
+
+- **Oggi / Giorni**: previsioni a 5 giorni da 5 modelli, con indicatore di affidabilità; ore di sole diretto nell'orto.
+- **Gelo**: avviso con giorni di anticipo (minima, temperatura sul terreno, cause) e statistica storica delle gelate.
+- **Pioggia**: pioggia caduta e prevista, consiglio di annaffiatura, mattine adatte ai lavori.
+- **Orto**: fase lunare e calendario, cosa seminare o trapiantare *ora*. Il periodo della tabella è solo la
+  finestra possibile: dentro decidono la temperatura del terreno e le gelate previste.
+
+## Tabella delle colture
+
+I valori di partenza sono in `src/data/colture.json` (scritti come dati originali, indicativi per il Nord Italia).
+Dall'app (**Orto → Modifica la tabella delle colture**) puoi cambiare periodi e soglie di ogni coltura, ripristinare
+l'originale o aggiungere colture tue: le modifiche restano sul dispositivo.
 
 ## Installare l'app sul telefono
 

@@ -6,15 +6,19 @@
   import { loadClimate, loadHistory, type Climate } from '../app/historyService'
   import { computeInsights } from '../app/insights'
   import type { SoilType } from '../core/irrigation/irrigation'
+  import { EMPTY_USER_CROPS, mergeCrops, newCustomCrop, type Crop, type UserCrops } from '../core/sowing/crops'
+  import { BASE_CROPS, loadUserCrops, saveUserCrops } from '../app/cropsService'
   import type { HorizonProfile, Location } from '../core/types'
   import LocationForm from './components/LocationForm.svelte'
   import { ageLabel } from './format'
   import Giorni from './screens/Giorni.svelte'
   import Impostazioni from './screens/Impostazioni.svelte'
   import Oggi from './screens/Oggi.svelte'
+  import Orto from './screens/Orto.svelte'
+  import TabellaColture from './screens/TabellaColture.svelte'
   import Pioggia from './screens/Pioggia.svelte'
 
-  type Tab = 'oggi' | 'giorni' | 'pioggia' | 'impostazioni'
+  type Tab = 'oggi' | 'giorni' | 'pioggia' | 'orto' | 'impostazioni'
 
   let location = $state<Location | null>(loadLocation())
   let tab = $state<Tab>('oggi')
@@ -29,7 +33,31 @@
   let soil = $state<SoilType>(loadSoil())
   let extrasFor = $state('')
 
-  const insights = $derived(data ? computeInsights(data, history, soil) : null)
+  let userCrops = $state<UserCrops>(EMPTY_USER_CROPS)
+  let editingCrops = $state(false)
+  const crops = $derived(mergeCrops(BASE_CROPS, userCrops))
+  loadUserCrops().then((u) => (userCrops = u))
+
+  const insights = $derived(data ? computeInsights(data, history, soil, crops, climate) : null)
+
+  function commitCrops(u: UserCrops) {
+    userCrops = u
+    saveUserCrops(u)
+  }
+  function patchCrop(id: string, patch: Partial<Crop>) {
+    if (userCrops.custom.some((c) => c.id === id)) {
+      commitCrops({ ...userCrops, custom: userCrops.custom.map((c) => (c.id === id ? { ...c, ...patch } : c)) })
+    } else {
+      commitCrops({ ...userCrops, overrides: { ...userCrops.overrides, [id]: { ...userCrops.overrides[id], ...patch } } })
+    }
+  }
+  function resetCrop(id: string) {
+    const overrides = { ...userCrops.overrides }
+    delete overrides[id]
+    commitCrops({ ...userCrops, overrides })
+  }
+  const addCrop = (name: string, emoji: string) => commitCrops({ ...userCrops, custom: [...userCrops.custom, newCustomCrop(name, emoji)] })
+  const removeCrop = (id: string) => commitCrops({ ...userCrops, custom: userCrops.custom.filter((c) => c.id !== id) })
 
   function setSoil(s: SoilType) {
     soil = s
@@ -127,8 +155,12 @@
         <Oggi {data} {location} {horizon} horizonFailed={horizonTried && !horizon} {insights} />
       {:else if tab === 'giorni'}
         <Giorni {data} {location} {horizon} {insights} {climate} />
-      {:else}
+      {:else if tab === 'pioggia'}
         <Pioggia {data} {history} {insights} />
+      {:else if editingCrops}
+        <TabellaColture {crops} user={userCrops} onpatch={patchCrop} onreset={resetCrop} onadd={addCrop} onremove={removeCrop} onclose={() => (editingCrops = false)} />
+      {:else}
+        <Orto {insights} today={data.nowLocal.slice(0, 10)} onedit={() => (editingCrops = true)} />
       {/if}
       <p class="age">{ageLabel(data.raw.fetchedAt)} · {data.raw.models.length} modelli</p>
     {:else if loading}
@@ -140,6 +172,7 @@
     <button class:active={tab === 'oggi'} onclick={() => (tab = 'oggi')}><span>☀️</span>Oggi</button>
     <button class:active={tab === 'giorni'} onclick={() => (tab = 'giorni')}><span>📅</span>Giorni</button>
     <button class:active={tab === 'pioggia'} onclick={() => (tab = 'pioggia')}><span>🌧️</span>Pioggia</button>
+    <button class:active={tab === 'orto'} onclick={() => (tab = 'orto')}><span>🌱</span>Orto</button>
     <button class:active={tab === 'impostazioni'} onclick={() => (tab = 'impostazioni')}><span>⚙️</span>Impostazioni</button>
   </nav>
 {/if}
@@ -157,8 +190,8 @@
   .banner.err { background: #fde0dc; }
   .age { text-align: center; font-size: 0.8rem; opacity: 0.7; }
   .center { text-align: center; }
-  nav { position: fixed; bottom: 0; left: 0; right: 0; display: grid; grid-template-columns: repeat(4, 1fr); background: #fff; border-top: 2px solid var(--pesca); padding-bottom: env(safe-area-inset-bottom); }
-  nav button { background: none; border: 0; font: inherit; font-size: 0.8rem; padding: 8px 4px; display: grid; justify-items: center; cursor: pointer; color: inherit; opacity: 0.6; }
+  nav { position: fixed; bottom: 0; left: 0; right: 0; display: grid; grid-template-columns: repeat(5, 1fr); background: #fff; border-top: 2px solid var(--pesca); padding-bottom: env(safe-area-inset-bottom); }
+  nav button { background: none; border: 0; font: inherit; font-size: 0.7rem; padding: 8px 4px; display: grid; justify-items: center; cursor: pointer; color: inherit; opacity: 0.6; }
   nav button span { font-size: 1.5rem; }
   nav button.active { opacity: 1; font-weight: 700; }
 </style>

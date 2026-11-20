@@ -12,3 +12,13 @@ export function daysBetween(from: string, to: string): number {
 export function dayOfYear(date: string): number {
   return daysBetween(date.slice(0, 4) + '-01-01', date) + 1
 }
+
+/** "MM-DD" of a "YYYY-MM-DD" date. */
+export const monthDayOf = (date: string): string => date.slice(5, 10)
+
+/** Days from `date` to the next occurrence of "MM-DD" (0 if it is today). */
+export function daysUntilMonthDay(date: string, md: string): number {
+  const year = Number(date.slice(0, 4))
+  const thisYear = daysBetween(date, `${year}-${md}`)
+  return thisYear >= 0 ? thisYear : daysBetween(date, `${year + 1}-${md}`)
+}
