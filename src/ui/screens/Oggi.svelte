@@ -4,6 +4,8 @@
   import { daySun, formatLocalTime, isDaylight } from '../../core/sun/sun'
   import type { HorizonProfile, Location } from '../../core/types'
   import FrostBanner from '../components/FrostBanner.svelte'
+  import { moonAt } from '../../core/moon/moon'
+  import TasksCard from '../components/TasksCard.svelte'
   import HorizonChart from '../components/HorizonChart.svelte'
   import IrrigationCard from '../components/IrrigationCard.svelte'
   import WorkWindowsCard from '../components/WorkWindowsCard.svelte'
@@ -59,6 +61,7 @@
   </section>
 
   <IrrigationCard advice={insights.advice} />
+  <TasksCard items={insights.tasks.filter((t) => t.status === 'ora')} waxing={moonAt(data.nowLocal.slice(0, 10)).waxing} limit={3} />
   <WorkWindowsCard windows={insights.work} today={data.nowLocal.slice(0, 10)} />
 
   {#if sun}

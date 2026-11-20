@@ -22,3 +22,8 @@ export function daysUntilMonthDay(date: string, md: string): number {
   const thisYear = daysBetween(date, `${year}-${md}`)
   return thisYear >= 0 ? thisYear : daysBetween(date, `${year + 1}-${md}`)
 }
+
+/** Day number (1-365) of an "MM-DD" in a non-leap reference year: lets windows be compared across years. */
+export function mdToDoy(md: string): number {
+  return dayOfYear(`2001-${md}`)
+}

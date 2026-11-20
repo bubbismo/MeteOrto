@@ -3,6 +3,8 @@ import { assessFrost, type FrostNight } from '../core/frost/frost'
 import { buildPastWater, nearReliability, rainNext48 } from '../core/irrigation/inputs'
 import { irrigationAdvice, type IrrigationAdvice, type SoilType } from '../core/irrigation/irrigation'
 import type { Climate } from './historyService'
+import lavori from '../data/lavori.json'
+import { tasksFor, type Task, type TaskAdvice } from '../core/lavori/lavori'
 import type { Crop } from '../core/sowing/crops'
 import { adviseAll, soilTemps, type MethodAdvice } from '../core/sowing/sowing'
 import { findWorkWindows, type WorkWindow } from '../core/workwindows/workwindows'
@@ -13,6 +15,7 @@ export interface Insights {
   advice: IrrigationAdvice
   work: WorkWindow[]
   sowing: MethodAdvice[]
+  tasks: TaskAdvice[]
   soil: { past: number | null; next: number | null }
 }
 
@@ -29,12 +32,14 @@ export function computeInsights(
   const today = nowLocal.slice(0, 10)
   const rainLast7 = past.filter((d) => d.date < today).slice(-7).reduce((a, d) => a + d.precip, 0)
   const frost = assessFrost(raw, combined, nowLocal)
+  const work = findWorkWindows(combined.hours, nowLocal)
   const { soilPast, soilNext } = soilTemps(combined.hours, nowLocal)
   return {
     frost,
     soil: { past: soilPast, next: soilNext },
     sowing: adviseAll(crops, { today, soilPast, soilNext, frostNights: frost, lateFrostUntil: climate?.air.lastSpring?.p90 ?? null }),
-    work: findWorkWindows(combined.hours, nowLocal),
+    work,
+    tasks: tasksFor(lavori as unknown as Task[], today, work, frost),
     advice: irrigationAdvice({
       past,
       rainLast7,

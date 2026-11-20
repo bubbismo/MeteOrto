@@ -88,3 +88,22 @@ export function saveSoil(v: 'sabbioso' | 'medio' | 'argilloso'): void {
     // ignore
   }
 }
+
+const SEASONS_KEY = 'meteorto.minSeasons'
+
+/** How many different seasons must agree before the diary suggests a change (2 or 3). */
+export function loadMinSeasons(): 2 | 3 {
+  try {
+    return localStorage.getItem(SEASONS_KEY) === '2' ? 2 : 3
+  } catch {
+    return 3
+  }
+}
+
+export function saveMinSeasons(v: 2 | 3): void {
+  try {
+    localStorage.setItem(SEASONS_KEY, String(v))
+  } catch {
+    // ignore
+  }
+}

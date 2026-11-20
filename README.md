@@ -5,7 +5,7 @@ allerta gelo, consigli di annaffiatura e di semina. Web app installabile (PWA),
 tutti i dati restano sul tuo dispositivo.
 
 > Stato: previsioni multi-modello, sole diretto con orizzonte, gelo, pioggia e annaffiatura,
-> luna e calendario delle semine. In arrivo: diario dell'orto e lavori del mese.
+> luna, calendario delle semine, lavori del mese e diario dell'orto. In arrivo: rifinitura grafica.
 
 ## Cosa fa
 
@@ -14,6 +14,19 @@ tutti i dati restano sul tuo dispositivo.
 - **Pioggia**: pioggia caduta e prevista, consiglio di annaffiatura, mattine adatte ai lavori.
 - **Orto**: fase lunare e calendario, cosa seminare o trapiantare *ora*. Il periodo della tabella è solo la
   finestra possibile: dentro decidono la temperatura del terreno e le gelate previste.
+
+## Diario e lavori
+
+- **Diario** (Orto → Diario): tocca **＋ Ho seminato** e scegli la coltura, in due tocchi. Per ogni semina l'app
+  salva da sola il meteo dei 30 giorni successivi (terreno, minime, gelate, pioggia): così capisci perché è
+  andata bene o male. Il raccolto si segna con periodo e stelle (da 1 a 5).
+- **Suggerimenti**: se almeno 3 stagioni diverse confermano lo stesso risultato (per esempio fagiolini seminati
+  a inizio settembre con buon raccolto) il diario propone di spostare la finestra della tabella. Non cambia mai
+  nulla da solo: decidi tu con *Applica* o *Ignora*. In Impostazioni puoi ridurre la soglia a 2 stagioni.
+- **Lavori** (Orto → Lavori): calendario dei lavori del mese, incrociato con le mattine adatte previste, il
+  gelo e la luna. I primi compaiono anche in *Oggi*. La tabella è in `src/data/lavori.json`.
+- **Backup** (Impostazioni → Dati e backup): esporta tutto in JSON (diario, colture modificate, impostazioni) o il
+  solo diario in CSV (apribile in Excel); importa un file per ripristinare o unire i dati.
 
 ## Tabella delle colture
 

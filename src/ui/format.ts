@@ -44,3 +44,8 @@ export function monthDay(md: string): string {
 export function weekdayFull(date: string): string {
   return WEEKDAYS_FULL[new Date(date + 'T12:00:00Z').getUTCDay()]
 }
+
+/** "2026-05-10" -> "10 mag 2026" */
+export function fullDate(date: string): string {
+  return `${monthDay(date.slice(5, 10))} ${date.slice(0, 4)}`
+}

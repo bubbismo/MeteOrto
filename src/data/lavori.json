@@ -1,0 +1,379 @@
+[
+ {
+  "id": "ordina-semi",
+  "title": "Pianifica l’orto e ordina i semi",
+  "detail": "Rivedi le rotazioni dell’anno scorso: non ripetere sulla stessa aiuola colture della stessa famiglia.",
+  "category": "pianificazione",
+  "period": {
+   "from": "12-15",
+   "to": "02-15"
+  }
+ },
+ {
+  "id": "attrezzi",
+  "title": "Controlla e affila gli attrezzi",
+  "detail": "Zappe, forbici, tubi dell’acqua: meglio ora che a primavera.",
+  "category": "manutenzione",
+  "period": {
+   "from": "01-01",
+   "to": "02-28"
+  }
+ },
+ {
+  "id": "letame-inverno",
+  "title": "Spargi letame maturo o compost",
+  "detail": "Distribuiscilo sulle aiuole libere e lascia lavorare il gelo; interra solo se il terreno non è gelato né inzuppato.",
+  "category": "concimazione",
+  "period": {
+   "from": "11-15",
+   "to": "02-28"
+  },
+  "profile": "lavori"
+ },
+ {
+  "id": "semenzaio-1",
+  "title": "Semenzaio al caldo: pomodori, peperoni, melanzane",
+  "detail": "Serve un posto luminoso e riparato a 20-25 °C. Semina fitta e rinvasa quando spuntano le prime foglie vere.",
+  "category": "semenzaio",
+  "period": {
+   "from": "02-10",
+   "to": "03-31"
+  }
+ },
+ {
+  "id": "semenzaio-2",
+  "title": "Semenzaio: cipolle, porri, sedano, lattughe",
+  "detail": "Sono più rustici: bastano un davanzale freddo o una serra non riscaldata.",
+  "category": "semenzaio",
+  "period": {
+   "from": "01-15",
+   "to": "03-15"
+  }
+ },
+ {
+  "id": "concime-fondo",
+  "title": "Concimazione di fondo",
+  "detail": "Compost o letame maturo interrato leggermente prima delle semine di primavera.",
+  "category": "concimazione",
+  "period": {
+   "from": "02-15",
+   "to": "04-15"
+  },
+  "profile": "lavori"
+ },
+ {
+  "id": "preparare-letti",
+  "title": "Prepara i letti di semina",
+  "detail": "Vanga o zappa quando il terreno è lavorabile (non appiccicoso), poi rastrella fino a ottenere una superficie fine.",
+  "category": "terreno",
+  "period": {
+   "from": "03-01",
+   "to": "04-30"
+  },
+  "profile": "lavori"
+ },
+ {
+  "id": "prime-semine",
+  "title": "Prime semine in campo",
+  "detail": "Piselli, spinaci, carote, ravanelli, rucola: sopportano il fresco.",
+  "category": "semina",
+  "period": {
+   "from": "03-01",
+   "to": "04-20"
+  }
+ },
+ {
+  "id": "patate",
+  "title": "Pianta le patate",
+  "detail": "Tuberi pregermogliati, in solchi di 10 cm; rincalza quando le piantine sono alte 20 cm.",
+  "category": "semina",
+  "period": {
+   "from": "03-10",
+   "to": "05-15"
+  },
+  "profile": "lavori",
+  "frostSensitive": true
+ },
+ {
+  "id": "fragole",
+  "title": "Metti a dimora le fragole",
+  "detail": "Primavera o fine estate; non interrare il cuore della pianta.",
+  "category": "trapianto",
+  "period": {
+   "from": "03-01",
+   "to": "04-30"
+  },
+  "profile": "lavori"
+ },
+ {
+  "id": "tutori",
+  "title": "Prepara tutori e reti",
+  "detail": "Per pomodori, fagioli rampicanti e cetrioli: montali prima del trapianto per non ferire le radici.",
+  "category": "manutenzione",
+  "period": {
+   "from": "04-10",
+   "to": "05-25"
+  }
+ },
+ {
+  "id": "trapianto-freddo",
+  "title": "Trapianta cavoli, lattughe e porri",
+  "detail": "Resistono bene al fresco; annaffia dopo il trapianto.",
+  "category": "trapianto",
+  "period": {
+   "from": "04-01",
+   "to": "05-15"
+  },
+  "profile": "lavori"
+ },
+ {
+  "id": "sarchiatura",
+  "title": "Sarchia e libera dalle erbacce",
+  "detail": "Meglio su terreno asciutto in superficie: le erbacce tolte seccano senza riattaccare.",
+  "category": "terreno",
+  "period": {
+   "from": "04-01",
+   "to": "09-30"
+  },
+  "profile": "lavori"
+ },
+ {
+  "id": "trapianto-caldo",
+  "title": "Trapianta pomodori, peperoni e melanzane",
+  "detail": "Aspetta che il terreno sia caldo e le gelate siano finite; pacciama subito.",
+  "category": "trapianto",
+  "period": {
+   "from": "05-01",
+   "to": "06-10"
+  },
+  "profile": "lavori",
+  "frostSensitive": true
+ },
+ {
+  "id": "semine-caldo",
+  "title": "Semina fagioli, zucchine, cetrioli e mais",
+  "detail": "Hanno bisogno di terreno caldo: se è freddo marciscono.",
+  "category": "semina",
+  "period": {
+   "from": "04-25",
+   "to": "06-30"
+  },
+  "frostSensitive": true
+ },
+ {
+  "id": "pacciamatura",
+  "title": "Pacciama le aiuole",
+  "detail": "Paglia, erba secca o telo: tiene l’umidità e frena le erbacce.",
+  "category": "terreno",
+  "period": {
+   "from": "05-01",
+   "to": "06-30"
+  },
+  "profile": "lavori"
+ },
+ {
+  "id": "trattamento-rame",
+  "title": "Trattamenti preventivi (rame, zolfo)",
+  "detail": "Su pomodori e patate contro la peronospora, su cucurbitacee contro l’oidio: con vento debole e senza pioggia nelle ore successive.",
+  "category": "difesa",
+  "period": {
+   "from": "05-01",
+   "to": "08-31"
+  },
+  "profile": "trattamenti"
+ },
+ {
+  "id": "legatura",
+  "title": "Lega i pomodori ed elimina i succhioni",
+  "detail": "Ogni settimana, con tempo asciutto per non favorire le malattie.",
+  "category": "manutenzione",
+  "period": {
+   "from": "05-20",
+   "to": "08-31"
+  },
+  "profile": "lavori"
+ },
+ {
+  "id": "sfalcio",
+  "title": "Sfalcia i bordi e l’erba per la pacciamatura",
+  "detail": "Erba asciutta: l’erba bagnata marcisce.",
+  "category": "manutenzione",
+  "period": {
+   "from": "04-15",
+   "to": "10-15"
+  },
+  "profile": "sfalcio"
+ },
+ {
+  "id": "annaffiature",
+  "title": "Annaffia con regolarità",
+  "detail": "Meglio alla sera o all’alba, poca acqua ma frequente nelle prime settimane; consulta il consiglio di annaffiatura.",
+  "category": "manutenzione",
+  "period": {
+   "from": "06-01",
+   "to": "09-15"
+  }
+ },
+ {
+  "id": "semine-scalari",
+  "title": "Semine scalari di fagiolini e insalate",
+  "detail": "Ogni 2-3 settimane per avere raccolti continui.",
+  "category": "semina",
+  "period": {
+   "from": "05-15",
+   "to": "08-15"
+  }
+ },
+ {
+  "id": "semenzaio-cavoli",
+  "title": "Semenzaio dei cavoli invernali",
+  "detail": "Verza, cavolo nero e cavolfiore per l’autunno-inverno.",
+  "category": "semenzaio",
+  "period": {
+   "from": "05-01",
+   "to": "07-15"
+  }
+ },
+ {
+  "id": "raccolta-aglio",
+  "title": "Raccogli aglio e cipolle",
+  "detail": "Quando le foglie ingialliscono e si piegano; con tempo asciutto, poi fai seccare all’ombra.",
+  "category": "raccolto",
+  "period": {
+   "from": "06-15",
+   "to": "08-05"
+  },
+  "profile": "lavori"
+ },
+ {
+  "id": "semine-estive",
+  "title": "Semina finocchi, radicchi e indivie",
+  "detail": "Dalla metà di giugno per il raccolto autunnale.",
+  "category": "semina",
+  "period": {
+   "from": "06-15",
+   "to": "08-31"
+  }
+ },
+ {
+  "id": "trapianto-cavoli",
+  "title": "Trapianta cavolfiori e broccoli",
+  "detail": "Per il raccolto d’autunno: annaffia bene nei primi giorni.",
+  "category": "trapianto",
+  "period": {
+   "from": "07-15",
+   "to": "08-31"
+  },
+  "profile": "lavori"
+ },
+ {
+  "id": "fragole-autunno",
+  "title": "Metti a dimora le fragole d’autunno",
+  "detail": "Radicano prima dell’inverno e producono bene la primavera dopo.",
+  "category": "trapianto",
+  "period": {
+   "from": "08-15",
+   "to": "10-15"
+  },
+  "profile": "lavori"
+ },
+ {
+  "id": "semine-autunno-1",
+  "title": "Semina spinaci, rucola e lattughe d’autunno",
+  "detail": "Il fresco le favorisce: semina dopo il caldo di agosto.",
+  "category": "semina",
+  "period": {
+   "from": "08-20",
+   "to": "10-05"
+  }
+ },
+ {
+  "id": "raccolta-zucche",
+  "title": "Raccogli zucche e cucurbitacee",
+  "detail": "Quando il picciolo è secco; con tempo asciutto, prima delle prime gelate.",
+  "category": "raccolto",
+  "period": {
+   "from": "09-10",
+   "to": "10-31"
+  },
+  "profile": "lavori",
+  "frostSensitive": true
+ },
+ {
+  "id": "raccolta-patate",
+  "title": "Raccogli le patate",
+  "detail": "A foglie secche e terreno asciutto; lasciale asciugare all’ombra prima di riporle.",
+  "category": "raccolto",
+  "period": {
+   "from": "08-15",
+   "to": "10-31"
+  },
+  "profile": "lavori",
+  "frostSensitive": true
+ },
+ {
+  "id": "pomodori-verdi",
+  "title": "Raccogli i pomodori prima del gelo",
+  "detail": "Quelli verdi maturano in casa; non aspettare la gelata.",
+  "category": "raccolto",
+  "period": {
+   "from": "10-01",
+   "to": "11-15"
+  },
+  "frostSensitive": true
+ },
+ {
+  "id": "semine-autunno-2",
+  "title": "Semina fave, piselli e aglio",
+  "detail": "Per l’inverno e la primavera successiva, nelle zone dove il gelo non è eccessivo.",
+  "category": "semina",
+  "period": {
+   "from": "10-15",
+   "to": "11-30"
+  },
+  "moon": "calante"
+ },
+ {
+  "id": "letame-autunno",
+  "title": "Concimazione di fondo autunnale",
+  "detail": "Letame maturo sulle aiuole libere; si decompone durante l’inverno.",
+  "category": "concimazione",
+  "period": {
+   "from": "10-15",
+   "to": "12-15"
+  },
+  "profile": "lavori"
+ },
+ {
+  "id": "pulizia",
+  "title": "Pulizia di fine stagione",
+  "detail": "Togli i residui malati (non finiscono nel compost), lascia al suolo quelli sani.",
+  "category": "terreno",
+  "period": {
+   "from": "10-15",
+   "to": "12-15"
+  },
+  "profile": "lavori"
+ },
+ {
+  "id": "proteggi-gelo",
+  "title": "Proteggi le colture dal gelo",
+  "detail": "Cavoli, finocchi, insalate e prezzemolo: tessuto non tessuto nelle notti sotto zero.",
+  "category": "difesa",
+  "period": {
+   "from": "11-01",
+   "to": "03-15"
+  },
+  "frostSensitive": true
+ },
+ {
+  "id": "diario",
+  "title": "Bilancio della stagione",
+  "detail": "Segna nel diario cosa è andato bene e cosa no: sarà la base per le scelte del prossimo anno.",
+  "category": "pianificazione",
+  "period": {
+   "from": "12-01",
+   "to": "01-31"
+  }
+ }
+]
