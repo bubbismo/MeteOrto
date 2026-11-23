@@ -57,6 +57,9 @@ const MONTH_NAMES = ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno
 export const monthName = (m: number) => MONTH_NAMES[m - 1]
 export const monthShort = (m: number) => MONTH_NAMES[m - 1].slice(0, 3)
 
+/** "2026-11-22" -> "Dom" */
+export const weekdayShort = (date: string): string => WEEKDAYS[new Date(date + 'T12:00:00Z').getUTCDay()]
+
 /** "2026-11-22" -> "Sab 22 nov" */
 export function dayLabel(date: string): string {
   const wd = WEEKDAYS[new Date(date + 'T12:00:00Z').getUTCDay()]

@@ -10,7 +10,7 @@
   import type { Location } from '../../core/types'
   import IrrigationCard from '../components/IrrigationCard.svelte'
   import RainBars, { type Bar } from '../components/RainBars.svelte'
-  import { dayFull, dayLabel, mm, mm1, monthName, monthShort } from '../format'
+  import { dayFull, dayLabel, mm, mm1, monthName, monthShort, weekdayShort } from '../format'
 
   let { data, insights, location, climate }: { data: ForecastResult; insights: Insights; location: Location; climate: Climate | null } = $props()
 
@@ -31,7 +31,7 @@
   let token = 0
 
   const range = $derived.by(() => {
-    if (period === 'giorni') return { from: addDays(today, -29), to: addDays(today, 5) }
+    if (period === 'giorni') return { from: addDays(today, -6), to: addDays(today, 5) }
     if (period === 'mese') {
       const [y, m] = monthCursor.split('-').map(Number)
       return { from: `${monthCursor}-01`, to: `${monthCursor}-${pad(new Date(Date.UTC(y, m, 0)).getUTCDate())}` }
@@ -85,14 +85,15 @@
       const d = byDate.get(date)
       const dayNum = Number(date.slice(8, 10))
       let tick = ''
+      let tick2: string | undefined
       if (period === 'giorni') {
-        tick = date === today ? 'oggi' : i % 5 === 0 ? `${dayNum}/${Number(date.slice(5, 7))}` : ''
-        // do not crowd "oggi" with a neighbouring date
-        if (tick !== 'oggi' && Math.abs(allDates.indexOf(today) - i) < 3) tick = ''
+        // few bars: every one gets its weekday and day number
+        tick = date === today ? 'oggi' : weekdayShort(date)
+        tick2 = String(dayNum)
       } else {
         tick = [1, 5, 10, 15, 20, 25].includes(dayNum) || (dayNum === allDates.length && allDates.length - 25 >= 3) ? String(dayNum) : ''
       }
-      return { key: date, label: dayLabel(date), mm: d?.mm ?? 0, kind: d?.kind ?? 'past', expectedMm: d?.expectedMm, tick, missing: !d }
+      return { key: date, label: dayLabel(date), mm: d?.mm ?? 0, kind: d?.kind ?? 'past', expectedMm: d?.expectedMm, tick, tick2, missing: !d }
     })
   })
 
@@ -136,7 +137,7 @@
   // ---------------------------------------------------------------- texts
   const INTENSITY = { trace: 'tracce o niente', debole: 'pioggia debole', moderata: 'pioggia moderata', forte: 'pioggia forte' } as const
   const [cy, cm] = $derived(monthCursor.split('-').map(Number))
-  const title = $derived(period === 'giorni' ? 'Ultimi 30 giorni' : period === 'mese' ? `${monthName(cm)} ${cy}` : String(yearCursor))
+  const title = $derived(period === 'giorni' ? 'Ultimi 7 giorni' : period === 'mese' ? `${monthName(cm)} ${cy}` : String(yearCursor))
   const isCurrentMonth = $derived(monthCursor === thisMonth)
   const isCurrentYear = $derived(yearCursor === thisYear)
 
@@ -185,7 +186,7 @@
 <IrrigationCard advice={insights.advice} />
 
 <div class="seg" role="tablist" aria-label="Periodo">
-  {#each [['giorni', '30 giorni'], ['mese', 'Mese'], ['anno', 'Anno']] as [p, label]}
+  {#each [['giorni', '7 giorni'], ['mese', 'Mese'], ['anno', 'Anno']] as [p, label]}
     <button role="tab" aria-selected={period === p} class:on={period === p} onclick={() => setPeriod(p as Period)}>{label}</button>
   {/each}
 </div>
@@ -231,7 +232,7 @@
   <p class="empty">Lo storico di questo periodo non è disponibile: serve la connessione (o il servizio ha raggiunto il limite di richieste). Riprova più tardi.</p>
 {:else}
   <figure class="chart">
-    <RainBars {bars} {selected} onselect={pickBar} labelAll={period === 'anno'} />
+    <RainBars {bars} {selected} onselect={pickBar} labelAll={period !== 'mese'} />
     <figcaption>
       <span><i class="c1"></i>&lt; 1 mm</span><span><i class="c2"></i>debole</span><span><i class="c3"></i>10–30</span><span><i class="c4"></i>oltre 30</span>
       {#if period === 'anno'}<span><i class="avgm"></i>media {avg?.years ?? 25} anni</span>{:else}<span><i class="fc"></i>prevista</span>{/if}

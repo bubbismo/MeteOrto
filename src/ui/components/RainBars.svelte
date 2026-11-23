@@ -12,6 +12,8 @@
     expectedMm?: number
     /** Short text under the bar ("" for none). */
     tick?: string
+    /** Optional second line under the first one (e.g. the day number under the weekday). */
+    tick2?: string
     /** No data for this slot: nothing is drawn. */
     missing?: boolean
     /** Typical value (months): drawn as a marker. */
@@ -26,13 +28,14 @@
   }: { bars: Bar[]; selected?: string | null; onselect: (key: string) => void; labelAll?: boolean } = $props()
 
   const W = 360
-  const H = 210
   const L = 40
   const R = 6
   const T = 28
-  const B = 28
   const plotW = W - L - R
-  const plotH = H - T - B
+  const plotH = 154
+  // room for a second line of labels under the bars, when there is one
+  const B = $derived(bars.some((b) => b.tick2) ? 42 : 28)
+  const H = $derived(T + plotH + B)
 
   const top = $derived(Math.max(0, ...bars.map((b) => Math.max(b.mm, b.expectedMm ?? 0, b.avg ?? 0))))
   const axis = $derived(niceAxis(top, 4))
@@ -98,7 +101,8 @@
       <text x={cx(i)} y={y(Math.max(b.mm, b.expectedMm ?? 0, b.avg ?? 0)) - 5} text-anchor="middle" class="val">{fmt(b.mm)}</text>
     {/if}
     {#if b.tick}
-      <text x={cx(i)} y={H - 9} text-anchor="middle" class="tick" class:now={b.kind === 'today'}>{b.tick}</text>
+      <text x={cx(i)} y={y(0) + 17} text-anchor="middle" class="tick" class:now={b.kind === 'today'}>{b.tick}</text>
+      {#if b.tick2}<text x={cx(i)} y={y(0) + 31} text-anchor="middle" class="tick2" class:now={b.kind === 'today'}>{b.tick2}</text>{/if}
       <line x1={cx(i)} x2={cx(i)} y1={y(0)} y2={y(0) + 4} stroke="#9fb6c4" />
     {/if}
     <!-- one large touch target per bar -->
@@ -117,8 +121,10 @@
   .axis { font-size: 11px; fill: #5d7a8c; }
   .unit { font-size: 11px; fill: #5d7a8c; font-weight: 700; }
   .val { font-size: 12.5px; font-weight: 800; fill: #01579b; paint-order: stroke; stroke: #fff; stroke-width: 3px; stroke-linejoin: round; }
-  .tick { font-size: 11px; fill: #5d7a8c; }
-  .tick.now { fill: #b45f00; font-weight: 800; }
+  .tick { font-size: 10.5px; fill: #5d7a8c; }
+  .tick.now { fill: #b45f00; font-weight: 800; font-size: 10px; }
+  .tick2 { font-size: 11px; font-weight: 700; fill: #3d5565; }
+  .tick2.now { fill: #b45f00; }
   .bar { transform-box: fill-box; transform-origin: bottom; animation: grow 0.6s var(--ease) both; animation-delay: calc(var(--i) * 14ms); }
   .bar.forecast { opacity: 0.5; stroke: #0288d1; stroke-width: 1.2; stroke-dasharray: 3 2; }
   .bar.today { stroke: #ff9f1c; stroke-width: 1.5; }
