@@ -11,7 +11,10 @@ const SKY_LABEL = {
 
 export const skyLabel = (s: keyof typeof SKY_LABEL, night = false) => (night && s === 'sun' ? 'Sereno' : SKY_LABEL[s])
 export const deg = (v: number | null) => (v === null ? '–' : `${Math.round(v)}°`)
-export const mm = (v: number) => (v < 0.1 ? '0' : v < 10 ? v.toFixed(1) : String(Math.round(v)))
+/** Millimetres the Italian way: "4,2", "33". */
+export const mm = (v: number) => (v < 0.1 ? '0' : v < 10 ? v.toFixed(1).replace('.', ',') : String(Math.round(v)))
+/** Always one decimal: "33,0". */
+export const mm1 = (v: number) => v.toFixed(1).replace('.', ',')
 
 export function dayName(date: string, dayIndex: number): string {
   if (dayIndex === 0) return 'Oggi'
@@ -48,4 +51,20 @@ export function weekdayFull(date: string): string {
 /** "2026-05-10" -> "10 mag 2026" */
 export function fullDate(date: string): string {
   return `${monthDay(date.slice(5, 10))} ${date.slice(0, 4)}`
+}
+
+const MONTH_NAMES = ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre']
+export const monthName = (m: number) => MONTH_NAMES[m - 1]
+export const monthShort = (m: number) => MONTH_NAMES[m - 1].slice(0, 3)
+
+/** "2026-11-22" -> "Sab 22 nov" */
+export function dayLabel(date: string): string {
+  const wd = WEEKDAYS[new Date(date + 'T12:00:00Z').getUTCDay()]
+  return `${wd} ${Number(date.slice(8, 10))} ${monthShort(Number(date.slice(5, 7)))}`
+}
+
+/** "2026-11-22" -> "Sabato 22 novembre" */
+export function dayFull(date: string): string {
+  const wd = weekdayFull(date)
+  return `${wd.charAt(0).toUpperCase()}${wd.slice(1)} ${Number(date.slice(8, 10))} ${monthName(Number(date.slice(5, 7)))}`
 }

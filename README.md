@@ -35,7 +35,7 @@ l'app funziona per qualunque punto, quindi puoi condividerla con amici che vivon
 |---|---|
 | **Oggi** | Condizioni attuali con cielo animato, allerta gelo, consiglio di annaffiatura, lavori del periodo, mattine adatte, **sole diretto nell'orto** (calcolato con l'orizzonte reale) e prossime ore. |
 | **Giorni** | 5 giorni con minime, massime, pioggia, vento, raffiche, ore di sole e **affidabilità** (quanto i modelli concordano). Statistica storica delle gelate. |
-| **Pioggia** | Pioggia caduta e prevista, grafico, evaporazione e consiglio di annaffiatura. |
+| **Pioggia** | Consiglio di annaffiatura e storico della pioggia con date e quantità: vista **30 giorni**, **Mese** e **Anno** (con frecce per scorrere), toccando una barra vedi quel giorno o mese; elenco di «quando è piovuto», giorni senza pioggia e confronto con la media degli ultimi 25 anni del tuo punto. I dati scaricati restano sul telefono e si scarica solo ciò che manca. |
 | **Orto** | **Semine** (fase lunare, cosa seminare o trapiantare *ora*), **Lavori** del mese e **Diario**. |
 | **Impostazioni** | Posizione, tipo di terreno, orizzonte, backup, crediti. |
 

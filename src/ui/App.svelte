@@ -247,7 +247,7 @@
       {:else if tab === 'giorni'}
         <Giorni {data} {location} {horizon} {insights} {climate} />
       {:else if tab === 'pioggia'}
-        <Pioggia {data} {history} {insights} />
+        <Pioggia {data} {insights} {location} {climate} />
       {:else}
         <Orto
           {insights}

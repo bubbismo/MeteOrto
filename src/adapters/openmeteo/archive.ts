@@ -28,20 +28,30 @@ async function get(loc: Location, start: string, end: string, daily: string): Pr
 export async function fetchHistory(loc: Location, start: string, end: string): Promise<DayHistory[]> {
   const json = await get(loc, start, end, 'precipitation_sum,et0_fao_evapotranspiration,temperature_2m_min,temperature_2m_max')
   const d = json.daily
-  return (d.time as string[]).map((date, i) => ({
-    date,
-    precip: d.precipitation_sum[i] ?? 0,
-    et0: d.et0_fao_evapotranspiration[i] ?? 0,
-    tMin: d.temperature_2m_min[i] ?? null,
-    tMax: d.temperature_2m_max[i] ?? null,
-  }))
+  const out: DayHistory[] = []
+  ;(d.time as string[]).forEach((date, i) => {
+    // the latest days may not be available yet: leave them out so that they are asked for again later
+    if (d.precipitation_sum[i] === null || d.precipitation_sum[i] === undefined) return
+    out.push({
+      date,
+      precip: d.precipitation_sum[i],
+      et0: d.et0_fao_evapotranspiration[i] ?? 0,
+      tMin: d.temperature_2m_min[i] ?? null,
+      tMax: d.temperature_2m_max[i] ?? null,
+    })
+  })
+  return out
 }
 
-/** Daily minimum temperatures over a range of full years, for frost statistics. */
-export async function fetchDailyMinima(loc: Location, fromYear: number, toYear: number): Promise<DailyMin[]> {
-  const json = await get(loc, `${fromYear}-01-01`, `${toYear}-12-31`, 'temperature_2m_min')
+export interface ClimateDay extends DailyMin {
+  precip: number | null
+}
+
+/** Daily minimum temperature and rain over a range of full years, for frost and rain statistics (one request). */
+export async function fetchDailyClimate(loc: Location, fromYear: number, toYear: number): Promise<ClimateDay[]> {
+  const json = await get(loc, `${fromYear}-01-01`, `${toYear}-12-31`, 'temperature_2m_min,precipitation_sum')
   const d = json.daily
-  return (d.time as string[]).map((date, i) => ({ date, tMin: d.temperature_2m_min[i] ?? null }))
+  return (d.time as string[]).map((date, i) => ({ date, tMin: d.temperature_2m_min[i] ?? null, precip: d.precipitation_sum[i] ?? null }))
 }
 
 /** Weather of the days after a sowing (archive): temperatures, rain and mean soil temperature at 0-7 cm. */
